@@ -1908,12 +1908,12 @@ function prep(cv) {
   const c = cv.getContext('2d'); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.clearRect(0, 0, w, h);
   return { c, w, h };
 }
-const palCache = new WeakMap();
+let palCache = new WeakMap();
 function pal(el) {
   if (palCache.has(el)) return palCache.get(el);
   const cs = getComputedStyle(el), g = n => cs.getPropertyValue(n).trim();
   const p = { fg: g('--fg'), mu: g('--mu'), grid: g('--grid'), hair: g('--hair'), cd: g('--cd'), cy: g('--cy'), cth: g('--cth'), cbad: g('--cbad'), xlo: g('--xlo'), xmid: g('--xmid'), xhi: g('--xhi'), surface: g('--surface'), surface2: g('--surface2'), bg: g('--bg') };
-  palCache.set(el, p); return p;
+  if (p.fg && p.cy && p.cd) palCache.set(el, p); /* never cache colors read while the frame was hidden */ return p;
 }
 const hex = h => { h = h.replace('#', ''); if (h.length === 3) h = h.split('').map(x => x + x).join(''); const n = parseInt(h, 16); return [n >> 16 & 255, n >> 8 & 255, n & 255]; };
 const rgba = (h, a) => { const [r, g, b] = hex(h); return `rgba(${r},${g},${b},${a})`; };
@@ -3095,7 +3095,7 @@ if (STACK) {
 }
 
 /* ================= first paint + resize ================= */
-function paintAll() { drawHero(); drawNaive(); drawG(); drawHists(performance.now()); drawCards(); sceneP = sceneProgress(); drawScene(); drawFolds(); PAINT2.forEach(f => { try { f(); } catch (e) { console.error(e); } }); }
+function paintAll() { palCache = new WeakMap(); drawHero(); drawNaive(); drawG(); drawHists(performance.now()); drawCards(); sceneP = sceneProgress(); drawScene(); drawFolds(); PAINT2.forEach(f => { try { f(); } catch (e) { console.error(e); } }); }
 paintAll();
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(paintAll);
 let rz = null; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(paintAll, 120); });
