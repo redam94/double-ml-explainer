@@ -470,12 +470,12 @@ h2.rv,h1.rv{transform:translateY(90px)}
   <div class="wrap">
     <div class="kicker">Causal inference, explained</div>
     <h1>Double <span class="grad">Machine Learning.</span></h1>
-    <p class="lede">Two prediction models and two residuals can estimate an effect very well. <b>Which effect</b> depends on a causal graph that the data cannot reveal.</p>
+    <p class="lede">Two prediction models and two residuals can pin down an effect very precisely. <b>Which effect</b> you get depends on a causal graph the data can't show you.</p>
     <div class="stage mec-stage">
-      <canvas id="mec" style="height:clamp(470px,46vw,560px)" aria-label="A causal graph over demand, spend and revenue cycles through six arrow orientations while a scatter of the same data stays fixed. The effect of spend implied by each graph swings between about 0.5, 1.4 and 0."></canvas>
+      <canvas id="mec" style="height:clamp(470px,46vw,560px)" aria-label="A causal graph of demand, spend and revenue cycles through six ways of pointing its arrows. A scatter of the same data stays still beside it. The effect of spend each graph implies moves between about 0.5, 1.4 and 0."></canvas>
       <div class="mec-read"><div class="mec-l"><div class="lab" id="mecK">Graph 1 of 6</div><h3 id="mecName">Demand drives both</h3><p id="mecDesc"></p></div><div class="mec-r"><div class="lab">Effect of one more dollar</div><div class="num" id="mecEff">0.49</div></div></div>
       <div class="mec-tabs" id="mecTabs" role="group" aria-label="Choose a causal graph"></div>
-      <p class="mec-cap">All six graphs connect every pair of variables, so none of them implies an independence the data could contradict. Together they form one Markov equivalence class: any joint distribution of demand, spend and revenue fits each of them equally well. Choosing among them is an assumption.</p>
+      <p class="mec-cap">Each of these six graphs links every pair of variables. So none of them predicts a pattern the data could rule out. Statisticians call a group like this a Markov equivalence class. Any data on demand, spend and revenue fits all six equally well, so picking one is an assumption you make.</p>
     </div>
     <div class="specs">
       <div class="spec"><span class="v">6</span><span class="k">causal graphs</span></div>
@@ -484,10 +484,10 @@ h2.rv,h1.rv{transform:translateY(90px)}
       <div class="spec"><span class="v">3</span><span class="k">different answers</span></div>
     </div>
     <div class="parts">
-      <a class="part" href="#identification"><span class="k">Part I · identification</span><b>What makes it causal</b><span class="d">The assumptions that turn a causal question into a statistical one, and why the data cannot confirm them.</span><span class="go">Start here ↓</span></a>
-      <a class="part" href="#part2a"><span class="k">Part II · continuous treatment</span><b>Media spend and revenue</b><span class="d">Partialling out, orthogonality and cross-fitting, on weekly paid social spend.</span><span class="go">Jump to Part II ↓</span></a>
-      <a class="part" href="#part2"><span class="k">Part III · binary treatment</span><b>Ads that already ran</b><span class="d">Matching, weighting and doubly robust lift for customers who saw a campaign against those who did not.</span><span class="go">Jump to Part III ↓</span></a>
-      <a class="part" href="#p3-sens"><span class="k">Last · sensitivity</span><b>How wrong would it have to be?</b><span class="d">Tipping points benchmarked against what you measured, and why design beats estimation.</span><span class="go">Jump to the end ↓</span></a>
+      <a class="part" href="#identification"><span class="k">Part I · identification</span><b>What makes it causal</b><span class="d">The assumptions that turn a causal question into one the data can answer, and why the data can't confirm them.</span><span class="go">Start here ↓</span></a>
+      <a class="part" href="#part2a"><span class="k">Part II · continuous treatment</span><b>Media spend and revenue</b><span class="d">How to estimate what weekly paid social spend does to revenue, and where simple models go wrong.</span><span class="go">Jump to Part II ↓</span></a>
+      <a class="part" href="#part2"><span class="k">Part III · binary treatment</span><b>Ads that already ran</b><span class="d">Measuring lift after a campaign by comparing customers who saw it with customers who didn't.</span><span class="go">Jump to Part III ↓</span></a>
+      <a class="part" href="#p3-sens"><span class="k">Last · sensitivity</span><b>How wrong would it have to be?</b><span class="d">How far the assumptions would have to bend to change the answer, and why a test beats any estimator.</span><span class="go">Jump to the end ↓</span></a>
     </div>
   </div>
 </header>
@@ -498,10 +498,10 @@ h2.rv,h1.rv{transform:translateY(90px)}
     <div class="center">
       <div class="eyebrow">Part I · Identification</div>
       <h2>Before any model: <span class="grad">what makes it causal.</span></h2>
-      <p class="lede">Every estimator on this page answers a statistical question about the data. Assumptions decide whether that answer is the causal one, and <b>the data cannot check them.</b></p>
+      <p class="lede">Every estimator on this page answers a question about the data. Assumptions decide whether that answer is the causal effect. <b>The data can't check those assumptions.</b></p>
     </div>
     <div class="stage po-stage">
-      <canvas id="po" style="height:clamp(300px,30vw,380px)" aria-label="Customers drawn as pills split into an outcome with ads and an outcome without ads. First both halves show; then the unobserved half of every customer turns into a dashed blank; then the blanks for exposed customers fill partway with the look-alike conversion rate."></canvas>
+      <canvas id="po" style="height:clamp(300px,30vw,380px)" aria-label="Each customer is a pill split in two: the outcome with ads and the outcome without. First both halves show. Then the half nobody observes turns into a dashed blank. Then the blanks for exposed customers fill partway with the conversion rate of similar unexposed customers."></canvas>
       <div class="po-read">
         <div class="po-steps" id="poSteps"><span class="on">1 · Both outcomes</span><span>2 · What you see</span><span>3 · Identification</span></div>
         <div class="po-main"><div><div class="lab" id="poK"></div><p id="poTxt"></p></div><div class="po-num" id="poNum"></div></div>
@@ -509,13 +509,13 @@ h2.rv,h1.rv{transform:translateY(90px)}
       <div class="legend center-legend"><span>left half: with ads</span><span>right half: without ads</span><span style="color:var(--cy)"><i style="height:9px"></i>converted</span><span><i style="height:9px;background:transparent;box-shadow:inset 0 0 0 1.2px var(--mu)"></i>did not</span><span><i style="height:9px;background:transparent;border:1.2px dashed var(--mu)"></i>never observed</span><span style="color:var(--cd)"><i></i>saw the campaign</span></div>
     </div>
     <div class="flow3" role="img" aria-label="Causal question, linked by identification assumptions to an observed-data quantity, linked by estimation to a number">
-      <div class="fbox"><span class="k">The causal question</span><span class="v">ATT = E[<i class="Y">Y</i>(1) − <i class="Y">Y</i>(0) | <i class="D">D</i> = 1]</span><p>Defined on outcomes nobody observes. <span class="m Y">Y(0)</span> is missing for every exposed customer.</p></div>
+      <div class="fbox"><span class="k">The causal question</span><span class="v">ATT = E[<i class="Y">Y</i>(1) − <i class="Y">Y</i>(0) | <i class="D">D</i> = 1]</span><p>Built on outcomes nobody sees. <span class="m Y">Y(0)</span> is missing for every exposed customer.</p></div>
       <div class="farrow bad-a"><span class="lab">Identification</span><span class="gly"><span class="h">⟶</span><span class="v2">↓</span></span><span class="sub">assumptions · cannot be tested</span></div>
-      <div class="fbox"><span class="k">A quantity of the data</span><span class="v">ψ = E[<i class="Y">Y</i> | <i class="D">D</i> = 1] − E[<i class="Y">μ</i><sub>0</sub>(<i>X</i>) | <i class="D">D</i> = 1]</span><p>A feature of the distribution of <span class="m">(X, D, Y)</span>. More data pins it down.</p></div>
+      <div class="fbox"><span class="k">A quantity of the data</span><span class="v">ψ = E[<i class="Y">Y</i> | <i class="D">D</i> = 1] − E[<i class="Y">μ</i><sub>0</sub>(<i>X</i>) | <i class="D">D</i> = 1]</span><p>Something you can measure from <span class="m">(X, D, Y)</span>. More data makes it more precise.</p></div>
       <div class="farrow ok-a"><span class="lab">Estimation</span><span class="gly"><span class="h">⟶</span><span class="v2">↓</span></span><span class="sub">Parts II and III · checkable</span></div>
-      <div class="fbox"><span class="k">A number</span><span class="v"><i class="hat">ψ</i> = <span data-stat="p3.psi">7.0</span> pp ± <span data-stat="p3.psiHw">3.7</span></span><p>What Parts II and III learn to compute well, here for the ad campaign.</p></div>
+      <div class="fbox"><span class="k">A number</span><span class="v"><i class="hat">ψ</i> = <span data-stat="p3.psi">7.0</span> pp ± <span data-stat="p3.psiHw">3.7</span></span><p>Parts II and III show how to compute this well. This one is for the ad campaign.</p></div>
     </div>
-    <p class="lede" style="font-size:clamp(18px,2vw,22px);margin-top:clamp(32px,4vw,48px)">Identification is the first arrow. Everything after Part I is the second. In the simulations on this page we wrote the world and left nothing out of <span class="m">X</span>, so the first arrow holds by construction. With real data it holds only if the assumptions do.</p>
+    <p class="lede" style="font-size:clamp(18px,2vw,22px);margin-top:clamp(32px,4vw,48px)">Identification is the first arrow. Everything after Part I is about the second. In this page's simulations we built the world ourselves and left nothing out of <span class="m">X</span>, so the first arrow holds. With real data, it holds only if the assumptions do.</p>
   </div>
 </section>
 
@@ -524,28 +524,28 @@ h2.rv,h1.rv{transform:translateY(90px)}
     <div class="center">
       <div class="eyebrow">Dana's two questions</div>
       <h2>Two questions. <span class="grad">One move.</span></h2>
-      <p class="lede">Dana runs measurement for an online retailer. This year she owes Finance two causal answers, and each becomes answerable only once she commits to assumptions she cannot test.</p>
+      <p class="lede">Dana runs measurement for an online retailer. This year Finance wants two answers from her. She can only get either one by making assumptions she has no way to test.</p>
     </div>
     <div class="scores">
       <div class="score">
         <div class="eyebrow"><span class="tag" style="color:var(--cd)">Part II · weekly spend</span></div>
         <h3 style="margin-top:14px">What does one more dollar of paid social return?</h3>
         <div class="eq"><i class="Y">Y</i><span class="op">=</span><i class="T">θ</i><i class="D">D</i><span class="op">+</span><i class="Y">g</i>(<i>X</i>)<span class="op">+</span><i>ε</i>,&nbsp; E[<i>ε</i> | <i class="D">D</i>, <i>X</i>] = 0</div>
-        <p><b>Assumes</b> that once demand <span class="m">X</span> is accounted for, the rest of each week's budget is as good as random with respect to revenue, and that the effect is the same every week.</p>
+        <p><b>Assumes</b> two things. Once you account for demand <span class="m">X</span>, what's left of each week's budget has nothing to do with revenue. And the effect is the same every week.</p>
         <div class="eq"><i class="T">θ</i><span class="op">=</span><span class="frac"><span>E[(<i class="D">D</i> − E[<i class="D">D</i> | <i>X</i>])(<i class="Y">Y</i> − E[<i class="Y">Y</i> | <i>X</i>])]</span><span>E[(<i class="D">D</i> − E[<i class="D">D</i> | <i>X</i>])²]</span></span></div>
-        <p><b>Identifies</b> the effect as a ratio of averages of observable quantities. No unobserved outcome appears in it.</p>
+        <p><b>Gives</b> the effect as a ratio of averages Dana can measure. Nothing in it depends on an outcome she can't see.</p>
       </div>
       <div class="score">
         <div class="eyebrow"><span class="tag" style="color:var(--cy)">Part III · ad exposure</span></div>
         <h3 style="margin-top:14px">What did the win-back campaign do for customers who saw it?</h3>
         <div class="eq"><i class="Y">Y</i>(0) ⫫ <i class="D">D</i> | <i>X</i>,&nbsp; <i class="D">e</i>(<i>X</i>) &lt; 1,&nbsp; <i class="Y">Y</i> = <i class="Y">Y</i>(<i class="D">D</i>)</div>
-        <p><b>Assumes</b> that the platform targeted on nothing Dana lacks, that every kind of exposed customer has unexposed look-alikes, and that exposure means one thing and does not spill over between customers.</p>
+        <p><b>Assumes</b> three things. The platform targeted only on data Dana also has. Every kind of exposed customer has similar customers who weren't exposed. And seeing the ads means the same thing for everyone, with no spillover between customers.</p>
         <div class="eq"><span class="r">ATT</span><span class="op">=</span>E[<i class="Y">Y</i> | <i class="D">D</i> = 1]<span class="op">−</span>E[<i class="Y">μ</i><sub>0</sub>(<i>X</i>) | <i class="D">D</i> = 1]</div>
-        <p><b>Identifies</b> the missing counterfactual <span class="m">E[Y(0) | D = 1]</span> as the unexposed conversion rate, averaged over the exposed group's features.</p>
+        <p><b>Gives</b> the missing piece, <span class="m">E[Y(0) | D = 1]</span>, as the conversion rate of unexposed customers, reweighted to match the exposed group.</p>
       </div>
     </div>
     <div class="prose narrow" style="margin-top:clamp(36px,5vw,56px)">
-      <p>Both results say the same thing: compare like with like on <span class="m">X</span>. Neither says how to do it. When <span class="m">X</span> is curved and 140 columns wide, the "how" is where simple models go wrong, and Parts II and III are about exactly that. First it is worth seeing how much work the assumptions are doing, given that nothing in the data can confirm them.</p>
+      <p>Both results come down to one instruction. Compare customers, or weeks, that look alike on <span class="m">X</span>. Neither result says how to do that. When <span class="m">X</span> has 140 columns and curved relationships, simple models get the comparison wrong, and Parts II and III cover how. Before that, look at how much the assumptions are carrying. Nothing in the data can confirm them.</p>
     </div>
   </div>
 </section>
@@ -559,9 +559,9 @@ h2.rv,h1.rv{transform:translateY(90px)}
     </div>
     <div class="two wide-r">
       <div class="prose">
-        <p>Take the ad question. Suppose the CFO asks how Dana knows the unexposed customers are a fair stand-in. She can show balance tables and overlap plots, and she can estimate the identified quantity as precisely as she likes. He asks again. What if the platform knew something she doesn't, such as which customers had been browsing its app that week?</p>
-        <p>She cannot rule it out, and no amount of data from this campaign would let her. The quantity she needs, how exposed customers would have converted without ads, is missing for every one of them. The table shows ten customers. Drag the slider to give exposed customers a hidden head start. Their unobservable column changes, and every column she can see stays exactly as it was.</p>
-        <p>That is what "untestable" means here. Two worlds that produce identical <span class="m">(X, D, Y)</span> can have different effects, so no test computed from <span class="m">(X, D, Y)</span> can tell them apart. More customers would not help, and neither would a better learner.</p>
+        <p>Take the ad question. The CFO asks how Dana knows the unexposed customers are a fair comparison. She shows balance tables and overlap plots. She can estimate the number as precisely as she likes. He asks again. What if the platform knew something she doesn't, like which customers had been browsing its app that week?</p>
+        <p>She can't rule it out. No amount of data from this campaign would let her. She needs to know how exposed customers would have converted without ads, and that is missing for every one of them. The table shows ten customers. Drag the slider to give exposed customers a hidden head start. Their hidden column changes. Every column Dana can see stays exactly the same.</p>
+        <p>This is what untestable means. Two worlds can produce the same <span class="m">(X, D, Y)</span> and still have different effects. Any test you run on <span class="m">(X, D, Y)</span> gives the same result in both. More customers won't help, and neither will a better model.</p>
       </div>
       <div class="stack">
         <div class="fig">
@@ -585,18 +585,18 @@ h2.rv,h1.rv{transform:translateY(90px)}
     <div class="center">
       <div class="eyebrow idea"><span class="tag">What assumptions buy</span> Partial identification</div>
       <h2>Identification is <span class="grad">bought with assumptions.</span></h2>
-      <p class="lede">Start from what this campaign's data say about the effect with no assumptions at all. Then add assumptions one at a time and watch the answer narrow.</p>
+      <p class="lede">Start with what this campaign's data say about the effect when you assume nothing. Then add one assumption at a time and watch the range shrink.</p>
     </div>
     <div class="ladder" id="ladder">
       <div class="lrow" data-k="0"><div class="ltxt"><span class="chip un">Data only</span><h3>No assumptions</h3><p>The exposed group's rate without ads could be anything from 0% to 100%, so the effect could be anything from <span data-stat="p3.l0">−66</span> to <span data-stat="p3.u0">+34</span> points.</p></div><div class="track"><span class="zero"></span><span class="iv"></span><span class="lo"></span><span class="hi"></span></div></div>
-      <div class="lrow" data-k="1"><div class="ltxt"><span class="chip un">Untestable</span><h3>+ Ads never reduce conversion</h3><p>Monotone response. It rules out negative effects. That is plausible for most ads and false for the ones people find annoying.</p></div><div class="track"><span class="zero"></span><span class="iv"></span><span class="lo"></span><span class="hi"></span></div></div>
-      <div class="lrow" data-k="2"><div class="ltxt"><span class="chip un">Untestable</span><h3>+ The platform picked people at least as likely to convert</h3><p>Monotone selection, given intent and recency. If the hidden targeting points the same way as the visible targeting, the identified quantity becomes a ceiling.</p></div><div class="track"><span class="zero"></span><span class="iv"></span><span class="lo"></span><span class="hi"></span></div></div>
-      <div class="lrow" data-k="3"><div class="ltxt"><span class="chip un">Untestable</span><h3>+ Nothing hidden</h3><p>No unmeasured confounding given <span class="m">X</span>. Every estimator in Parts II and III relies on it to produce a single number.</p></div><div class="track"><span class="zero"></span><span class="iv"></span><span class="lo"></span><span class="hi"></span></div></div>
+      <div class="lrow" data-k="1"><div class="ltxt"><span class="chip un">Untestable</span><h3>+ Ads never reduce conversion</h3><p>Called monotone response, this rules out ads that hurt sales. That's reasonable for most ads. It's wrong for the ones people find annoying.</p></div><div class="track"><span class="zero"></span><span class="iv"></span><span class="lo"></span><span class="hi"></span></div></div>
+      <div class="lrow" data-k="2"><div class="ltxt"><span class="chip un">Untestable</span><h3>+ The platform picked people at least as likely to convert</h3><p>Called monotone selection, this says hidden targeting leans the same way as the targeting Dana can see. If so, her estimate becomes an upper limit.</p></div><div class="track"><span class="zero"></span><span class="iv"></span><span class="lo"></span><span class="hi"></span></div></div>
+      <div class="lrow" data-k="3"><div class="ltxt"><span class="chip un">Untestable</span><h3>+ Nothing hidden</h3><p>Nothing outside <span class="m">X</span> drives both who saw the ads and who bought. Every estimator in Parts II and III needs this to give a single number.</p></div><div class="track"><span class="zero"></span><span class="iv"></span><span class="lo"></span><span class="hi"></span></div></div>
       <div class="lrow axis"><div></div><div class="track" id="laxis"></div></div>
     </div>
-    <p class="mu center" style="font-size:14.5px;margin:18px auto 0;max-width:72ch">Effect on conversion among exposed customers, in percentage points. Rows follow the logic of Manski (1990) and Manski &amp; Pepper (2000) and use only this campaign's data. Each row's bound is a population value estimated from the sample; the last row also shows its 95% interval.</p>
+    <p class="mu center" style="font-size:14.5px;margin:18px auto 0;max-width:72ch">Effect on conversion among exposed customers, in percentage points. The rows follow Manski (1990) and Manski &amp; Pepper (2000) and use only this campaign's data. Each range is estimated from the sample. The last row also shows its 95% interval.</p>
     <div class="prose narrow" style="margin-top:clamp(32px,4vw,48px)">
-      <p>Read the ladder from the top. The data alone cannot even tell Dana whether the campaign helped. The first assumption rules out harm. The second turns the identified quantity into an upper bound. Only the last turns it into a point, and every step down the ladder is a claim about customers she cannot observe.</p>
+      <p>Read the ladder from the top. On their own, the data can't even tell Dana whether the campaign helped. The first assumption rules out harm. The second caps the effect at her estimate. Only the last gives a single number. Each step down is a claim about customers she can't observe.</p>
     </div>
   </div>
 </section>
@@ -609,12 +609,12 @@ h2.rv,h1.rv{transform:translateY(90px)}
       <h2>What the data can and <span class="bad">cannot</span> tell you.</h2>
     </div>
     <div class="acards">
-      <div class="ac"><span class="chip un">Untestable</span><h3>No unmeasured confounding</h3><p><b>Spend:</b> once demand is accounted for, the rest of each week's budget is as good as random. <b>Ads:</b> the platform targeted on nothing Dana lacks. A placebo outcome, such as conversions in the weeks before launch, should show no lift. That check relies on an assumption of its own: that the hidden signal would also have moved pre-period conversions.</p></div>
-      <div class="ac"><span class="chip un">Untestable</span><h3>The right adjustment set</h3><p>Adjusting for a mediator absorbs part of the effect, and adjusting for a collider creates bias where there was none. This is a question about the causal graph. A learner given more columns cannot answer it, and it will use whatever you hand it.</p></div>
-      <div class="ac"><span class="chip des">Design</span><h3>Features measured before exposure</h3><p>A site visit during the flight is partly caused by the ads. A flexible learner will lean on it and soak up the effect, much as the memorizing learner does in Part II. Nothing in the data flags this. The pipeline's timestamps do.</p></div>
-      <div class="ac"><span class="chip des">Design</span><h3>One version of exposure, no spillover</h3><p>"Exposed" lumps one impression together with thirty, and household members share screens. Both blur what the effect means and whom it applies to.</p></div>
-      <div class="ac"><span class="chip part">Partly checkable</span><h3>Overlap</h3><p>You can see estimated propensities near 0 or 1, but only for the features you have, and only through a model of them. A structural zero, a customer type the platform never skips, looks the same as bad luck.</p></div>
-      <div class="ac"><span class="chip part">Modeling choice</span><h3>What the target means</h3><p>The spend model assumes a single θ for every week. Double ML relaxes the shapes of <span class="m">g</span> and <span class="m">m</span>, not the form of the effect. With heterogeneous effects, θ becomes a variance-weighted average, so it is worth knowing which one.</p></div>
+      <div class="ac"><span class="chip un">Untestable</span><h3>No unmeasured confounding</h3><p><b>Spend:</b> once you account for demand, the rest of each week's budget is as good as random. <b>Ads:</b> the platform used nothing to target that Dana can't see. You can run a placebo check, such as conversions in the weeks before launch, which should show no lift. That check carries an assumption too. It only works if the hidden signal would also have moved those earlier conversions.</p></div>
+      <div class="ac"><span class="chip un">Untestable</span><h3>The right adjustment set</h3><p>A mediator sits between the ads and the sale, so adjusting for it hides part of the effect. A collider is caused by both, so adjusting for it creates bias from nothing. Which columns are which is a question about the causal graph. A learner can't answer it. It will use whatever columns you give it.</p></div>
+      <div class="ac"><span class="chip des">Design</span><h3>Features measured before exposure</h3><p>The ads cause some of the site visits that happen during the flight. A flexible learner will use those visits and take part of the effect with them, as the memorizing learner does in Part II. Nothing in the data warns you. Only the timestamps in your pipeline do.</p></div>
+      <div class="ac"><span class="chip des">Design</span><h3>One version of exposure, no spillover</h3><p>The exposed group mixes people who saw one ad with people who saw thirty. People in the same household also share screens. Both make it less clear what the effect measures and who it applies to.</p></div>
+      <div class="ac"><span class="chip part">Partly checkable</span><h3>Overlap</h3><p>The propensity is the chance a customer was exposed. You can spot estimated propensities near 0 or 1. You only see them for the features you have, though, and only through a model. A customer type the platform never skips looks the same in the data as bad luck.</p></div>
+      <div class="ac"><span class="chip part">Modeling choice</span><h3>What the target means</h3><p>The spend model assumes one θ for every week. Double ML lets the shapes of <span class="m">g</span> and <span class="m">m</span> bend freely. The effect itself stays a single number. If the effect really varies from week to week, θ becomes a weighted average, and you should know which weeks count most.</p></div>
     </div>
   </div>
 </section>
@@ -625,7 +625,7 @@ h2.rv,h1.rv{transform:translateY(90px)}
     <div class="center">
       <div class="eyebrow attempt"><span class="tag">The temptation</span> Throw in every column</div>
       <h2>More controls. <span class="bad">Worse answer.</span></h2>
-      <p class="lede">The CRM has dozens of columns, and someone always suggests handing them all to a flexible learner to sort out. <b>It can't sort them.</b> Whether a column belongs in <span class="m">X</span> depends on where it sits in the causal graph, not on how well it predicts.</p>
+      <p class="lede">The CRM has dozens of columns, and someone always suggests giving all of them to a flexible learner. <b>The learner can't tell good columns from bad.</b> Whether a column belongs in <span class="m">X</span> depends on where it sits in the causal graph. How well it predicts tells you nothing about that.</p>
     </div>
     <div class="badstage">
       <div class="fig">
@@ -643,16 +643,16 @@ h2.rv,h1.rv{transform:translateY(90px)}
       </div>
     </div>
     <div class="roles">
-      <div class="role"><span class="chip ok">Confounder</span><h3>Purchase intent</h3><p>Drives both exposure and conversion. It belongs in the model, and leaving it out reopens a back-door path.</p><div class="res">Leave it out: <b data-bad="noI">…</b></div></div>
-      <div class="role"><span class="chip ok">Confounder</span><h3>Weeks since last order</h3><p>The platform's U-shaped targeting runs through it. Leave it out, and selection gets counted as lift.</p><div class="res">Leave it out: <b data-bad="noR">…</b></div></div>
-      <div class="role"><span class="chip un">Mediator</span><h3>Site sessions during the flight</h3><p>Ads drive visits, and visits drive orders. Adjusting for visits removes the part of the effect that runs through them, which here is most of it.</p><div class="res">Add it: <b data-bad="M">…</b></div></div>
-      <div class="role"><span class="chip un">Collider</span><h3>Loyalty activity after the flight</h3><p>Caused by both exposure and conversion. Conditioning on it ties the two together through a path that isn't causal, and the ads end up looking harmful.</p><div class="res">Add it: <b data-bad="C">…</b></div></div>
-      <div class="role"><span class="chip part">Instrument</span><h3>Ad inventory in the customer's region</h3><p>Moves exposure and nothing else. It adds no bias here but pushes propensities toward 0 and 1, so the spread widens. If anything hidden confounds, it also amplifies that bias.</p><div class="res">Add it: <b data-bad="Z">…</b></div></div>
-      <div class="role"><span class="chip mu">Noise</span><h3>Five unrelated fields</h3><p>Connected to nothing. Close to harmless in this model. With a flexible learner they cost some variance and give overfitting more to work with.</p><div class="res">Add them: <b data-bad="N">…</b></div></div>
+      <div class="role"><span class="chip ok">Confounder</span><h3>Purchase intent</h3><p>Intent drives both exposure and conversion, which makes it a confounder. It belongs in the model. Leave it out, and part of the platform's targeting gets counted as lift.</p><div class="res">Leave it out: <b data-bad="noI">…</b></div></div>
+      <div class="role"><span class="chip ok">Confounder</span><h3>Weeks since last order</h3><p>The platform targets both recent and lapsed buyers, so recency shapes who sees the ads. Leave it out, and the platform's choices get counted as lift.</p><div class="res">Leave it out: <b data-bad="noR">…</b></div></div>
+      <div class="role"><span class="chip un">Mediator</span><h3>Site sessions during the flight</h3><p>Ads drive visits, and visits drive orders. That makes visits a mediator. Adjust for them, and you remove the part of the effect that runs through visits. Here that's most of it.</p><div class="res">Add it: <b data-bad="M">…</b></div></div>
+      <div class="role"><span class="chip un">Collider</span><h3>Loyalty activity after the flight</h3><p>Both exposure and conversion drive loyalty activity, which makes it a collider. Adjusting for it links the two through a path that isn't causal. The ads end up looking harmful.</p><div class="res">Add it: <b data-bad="C">…</b></div></div>
+      <div class="role"><span class="chip part">Instrument</span><h3>Ad inventory in the customer's region</h3><p>Inventory changes who gets exposed and nothing else, which makes it an instrument. It adds no bias here. It does push propensities toward 0 and 1, so the estimates spread out. If a hidden confounder exists, it also makes that bias bigger.</p><div class="res">Add it: <b data-bad="Z">…</b></div></div>
+      <div class="role"><span class="chip mu">Noise</span><h3>Five unrelated fields</h3><p>These fields connect to nothing, and they do little harm in this model. A flexible learner would pay for them with some extra noise and more room to overfit.</p><div class="res">Add them: <b data-bad="N">…</b></div></div>
     </div>
     <div class="prose narrow" style="margin-top:clamp(40px,5vw,64px)">
-      <p>Two of these columns predict conversion better than anything else in the file: sessions and loyalty activity. Feature-importance plots would rank them first, and a model-selection procedure that scores prediction would keep them. Both are caused by the ads, so including them damages the estimate. Only knowing the order of events and the causal structure tells you to drop them.</p>
-      <p>Grant the right adjustment set and the other assumptions, and a purely statistical problem is left: estimate the identified quantity from finite, messy data. That sounds like the easy part. The next two parts show how simple models fail at it, in specific and predictable ways.</p>
+      <p>Sessions and loyalty activity predict conversion better than any other column in the file. A feature-importance plot would rank them first. Any variable selection that scores prediction would keep them. Yet the ads cause both, so including them wrecks the estimate. You only know to drop them if you know the order of events and the causal graph.</p>
+      <p>Suppose you have the right columns and the other assumptions hold. You still have to estimate the effect from a finite, messy dataset. That sounds like the easy part. The next two parts show how simple models get it wrong, and why.</p>
     </div>
   </div>
 </section>
@@ -662,13 +662,13 @@ h2.rv,h1.rv{transform:translateY(90px)}
   <div class="wrap">
     <div class="kicker" style="color:var(--cy)">Part II · Estimating a continuous effect</div>
     <h2 class="h1b">Grant the assumptions. <span class="grad">Now estimate.</span></h2>
-    <p class="lede">Part I turned "what does spend do" into a ratio of averages over residuals. Computing it sounds easy. With a curved, high-dimensional <span class="m">X</span>, the obvious ways to do it fail, and each failure has a specific cause.</p>
+    <p class="lede">Part I turned the spend question into a formula the data can answer. Now we have to compute it. When demand <span class="m">X</span> is curved and has many columns, the obvious methods fail, and each fails for a reason you can name.</p>
     <div class="stage">
       <canvas id="hero" aria-label="Animated scatter of 500 weeks morphing from raw spend and revenue into residuals, with the fitted slope falling from about 1.42 to about 0.49"></canvas>
       <div class="readout" aria-live="off">
         <div class="lab" id="heroLab">Raw data · fitted slope</div>
         <div class="num" id="heroNum">1.42</div>
-        <div class="sub" id="heroSub">Spend and revenue as recorded.</div>
+        <div class="sub" id="heroSub">Spend and revenue, as recorded.</div>
       </div>
     </div>
     <div class="specs">
@@ -689,9 +689,9 @@ h2.rv,h1.rv{transform:translateY(90px)}
     </div>
     <div class="two wide-r">
       <div class="prose">
-        <p>Start with the first question. Every week the media team sets a paid social budget, and every week revenue moves. Finance is about to lock next year's plan and wants one figure from her: how many dollars of revenue does one more dollar of spend produce?</p>
-        <p>If she overstates it, the company pours money into a channel that cannot pay it back. If she understates it, they cut the thing that works. Nobody gets to rerun the year.</p>
-        <p>The trouble is how the budget gets set. The team spends more in weeks they expect to be busy: holidays, paydays, warm weekends. Those same conditions lift revenue on their own. Call that bundle of conditions <span class="m">X</span>, demand.</p>
+        <p>Start with the first question. Every week the media team sets a paid social budget, and every week revenue moves. Finance is about to lock next year's plan. They want one figure from Dana: how much revenue does one more dollar of spend bring in?</p>
+        <p>If she overstates it, the company spends money on a channel that won't pay it back. If she understates it, they cut something that works. Nobody gets to rerun the year.</p>
+        <p>The problem is how the budget gets set. The team spends more in weeks they expect to be busy, like holidays, paydays and warm weekends. Those weeks bring in more revenue anyway. We call these conditions demand, written <span class="m">X</span>.</p>
       </div>
       <div class="fig">
         <svg class="dag" viewBox="0 0 520 330" role="img" aria-label="Causal diagram: demand X causes spend D and revenue Y; spend D causes revenue Y with effect theta">
@@ -714,18 +714,18 @@ h2.rv,h1.rv{transform:translateY(90px)}
           <text x="372" y="150" font-size="22" fill="var(--cy)">g(X)</text>
           <text x="260" y="248" text-anchor="middle" font-size="26" fill="var(--cth)">θ</text>
         </svg>
-        <div class="cap center">Demand pushes on both spend and revenue. Only the green arrow is the thing Finance is paying for.</div>
+        <div class="cap center">Demand raises both spend and revenue. Finance only cares about the green arrow.</div>
       </div>
     </div>
     <div class="eqbox" style="margin-top:clamp(40px,6vw,72px)">
       <div class="eq"><i class="Y">Y</i><span class="op">=</span><i class="T">θ</i><i class="D">D</i><span class="op">+</span><i class="Y">g</i>(<i>X</i>)<span class="op">+</span><i>ε</i></div>
       <div class="eq"><i class="D">D</i><span class="op">=</span><i class="D">m</i>(<i>X</i>)<span class="op">+</span><i>v</i></div>
-      <div class="cap">The partially linear model. <span class="m T">θ</span> is the causal effect. <span class="m Y">g</span> and <span class="m D">m</span> are nuisance functions: they have to be learned well, and nobody cares what they are. Part I covered when <span class="m T">θ</span> is causal. From here on that assumption is taken as given, and the question is how to estimate <span class="m T">θ</span>.</div>
+      <div class="cap">This is called the partially linear model. <span class="m T">θ</span> is the effect of spend. <span class="m Y">g</span> and <span class="m D">m</span> are nuisance functions. We need to learn them well, but we don't care about them for their own sake. Part I covered when <span class="m T">θ</span> is causal. From here on we assume it is and ask how to estimate it.</div>
     </div>
     <div class="tiles">
-      <div class="tile"><span class="k">The truth, set by us</span><span class="v"><i class="T">θ</i> = 0.50</span><p>Each extra dollar of spend returns fifty cents of revenue. Because we simulate the data, we can grade every method against it.</p></div>
-      <div class="tile"><span class="k">How demand drives spend</span><span class="v"><i class="D">m</i>(<i>X</i>) = 1.4 sin <i>X</i> + 0.3<i>X</i></span><p>Plus noise <span class="m">v</span> ~ N(0, 0.8²): the part of each week's budget that demand does not explain.</p></div>
-      <div class="tile"><span class="k">How demand drives revenue</span><span class="v"><i class="Y">g</i>(<i>X</i>) = 2.5 sin <i>X</i> + 0.6 cos 2<i>X</i></span><p>Curved, and it peaks where spend peaks. That overlap is the whole problem.</p></div>
+      <div class="tile"><span class="k">The truth, set by us</span><span class="v"><i class="T">θ</i> = 0.50</span><p>Each extra dollar of spend brings in fifty cents of revenue. We simulate the data, so we can grade every method against this number.</p></div>
+      <div class="tile"><span class="k">How demand drives spend</span><span class="v"><i class="D">m</i>(<i>X</i>) = 1.4 sin <i>X</i> + 0.3<i>X</i></span><p>Plus noise <span class="m">v</span> ~ N(0, 0.8²). This is the part of each week's budget that demand doesn't explain.</p></div>
+      <div class="tile"><span class="k">How demand drives revenue</span><span class="v"><i class="Y">g</i>(<i>X</i>) = 2.5 sin <i>X</i> + 0.6 cos 2<i>X</i></span><p>It's curved, and it peaks where spend peaks. That overlap causes all the trouble below.</p></div>
     </div>
   </div>
 </section>
@@ -745,12 +745,12 @@ h2.rv,h1.rv{transform:translateY(90px)}
       </div>
       <div class="stack">
         <div class="prose">
-          <p>Dana's first move is the one everybody makes: draw a line through revenue against spend. It comes back steep, with a standard error of 0.04. Precise, confident, and wrong.</p>
-          <p>Color the weeks by demand and the problem shows itself. The cool weeks sit bottom left, the hot weeks top right. Most of the slope is demand, borrowing spend's name.</p>
+          <p>Dana starts where most people start. She fits a straight line of revenue against spend. The slope comes back steep, with a standard error of 0.04. It looks precise, and it's wrong.</p>
+          <p>Color each week by demand and you can see why. Slow weeks sit at the bottom left and busy weeks at the top right. Most of the slope comes from demand, and the line credits it to spend.</p>
         </div>
         <div class="eqbox">
           <div class="eq"><span>plim</span>&nbsp;<i class="T hat">θ</i><sub class="r">OLS</sub><span class="op">=</span><i class="T">θ</i><span class="op">+</span><span class="frac"><span>Cov(<i class="D">m</i>(<i>X</i>), <i class="Y">g</i>(<i>X</i>))</span><span>Var(<i class="D">D</i>)</span></span></div>
-          <div class="cap">The second term is confounding. Here it adds about 0.91 to the answer.</div>
+          <div class="cap">The second term is confounding: demand moving spend and revenue together. Here it adds about 0.91 to the answer.</div>
         </div>
       </div>
     </div>
@@ -763,13 +763,13 @@ h2.rv,h1.rv{transform:translateY(90px)}
     <div class="center">
       <div class="eyebrow attempt"><span class="tag">Attempt 2</span> Let machine learning control for demand</div>
       <h2>Smarter model. <span class="bad">Still wrong.</span></h2>
-      <p class="lede">Control for <span class="m">X</span>, obviously. But <span class="m">X</span> is curved, and in the real data it is 140 columns wide.</p>
+      <p class="lede">The fix seems clear: control for demand <span class="m">X</span>. But its effect is curved, and in the real data it has 140 columns.</p>
     </div>
     <div class="two wide-r">
       <div class="prose">
-        <p>A hand-written linear control would miss the shape of <span class="m Y">g</span>, so Dana reaches for a flexible learner: penalized regression on a rich basis of demand features, tuned to predict well. One model, revenue on spend plus a learned function of demand. She reads <span class="m T">θ</span> off the spend coefficient.</p>
-        <p>The answer drops to <b data-stat="plug.mean">0.64</b>. Better. She runs the same procedure on 300 fresh datasets to check, and the estimates pile up around 0.64, never around 0.50. The 95% intervals cover the truth <b data-stat="plug.cov">4%</b> of the time.</p>
-        <p>The cause is the penalty itself. Regularization is what makes the model predict well, and it works by shrinking: <span class="m Y">ĝ</span> flattens the peaks of <span class="m Y">g</span>. The peaks are exactly where spend is high, so the spend coefficient soaks up the revenue that <span class="m Y">ĝ</span> left behind.</p>
+        <p>A straight-line control would miss the shape of <span class="m Y">g</span>. So Dana uses a flexible machine learning model, a penalized regression on many demand features, tuned to predict well. She fits one model of revenue on spend plus demand. Then she reads <span class="m T">θ</span> off the spend coefficient.</p>
+        <p>The answer drops to <b data-stat="plug.mean">0.64</b>. That's better. To check, she runs the same steps on 300 new datasets. The estimates cluster around 0.64, not 0.50. Her 95% intervals contain the truth only <b data-stat="plug.cov">4%</b> of the time.</p>
+        <p>The penalty causes the bias. The penalty, called regularization, helps the model predict well by shrinking its estimates. So <span class="m Y">ĝ</span> flattens the peaks of <span class="m Y">g</span>. Those peaks fall in the weeks when spend is high. The spend coefficient picks up the revenue that <span class="m Y">ĝ</span> missed.</p>
       </div>
       <div class="stack">
         <div class="fig">
@@ -791,7 +791,7 @@ h2.rv,h1.rv{transform:translateY(90px)}
         <span class="op">+</span>
         <span class="brace B"><span class="frac"><span>(1/√<i>n</i>) <span class="sum">Σ</span> <i class="D">m</i>(<i>X</i><sub><i>i</i></sub>)(<i class="Y">g</i> − <i class="Y">ĝ</i>)(<i>X</i><sub><i>i</i></sub>)</span><span>E[<i class="D">D</i>²]</span></span><span class="under">regularization bias</span></span>
       </div>
-      <div class="cap">Flexible learners converge slower than 1/√n, so the second sum grows with the sample. More data makes this estimator more confident about the wrong number.</div>
+      <div class="cap">Flexible models learn more slowly than 1/√n, so the second sum grows as the sample grows. With more data, this method becomes more confident about the wrong number.</div>
     </div>
   </div>
 </section>
@@ -802,7 +802,7 @@ h2.rv,h1.rv{transform:translateY(90px)}
     <div class="center">
       <div class="eyebrow idea"><span class="tag">The idea</span> Partial out demand from both sides</div>
       <h2>Subtract what demand explains. <span class="grad">Twice.</span></h2>
-      <p class="lede">An old trick from Frisch and Waugh (1933), made nonparametric by Robinson (1988). Give machine learning two prediction problems it is good at, and never ask it for <span class="m T">θ</span> directly.</p>
+      <p class="lede">Frisch and Waugh used this idea in 1933, and Robinson extended it to flexible models in 1988. You give machine learning two prediction tasks it's good at. You never ask it for <span class="m T">θ</span> directly.</p>
     </div>
     <div class="scene" id="scene">
       <div class="sticky">
@@ -813,11 +813,11 @@ h2.rv,h1.rv{transform:translateY(90px)}
         </div>
       </div>
       <div class="steps">
-        <div class="step" data-i="0"><div class="card"><div class="n">Step 1 of 5</div><h3>Start from the raw weeks.</h3><p>Spend across, revenue up. The fitted slope is <b class="mono" data-stat="show.naive">1.42</b>, the same wrong answer as before.</p></div></div>
-        <div class="step" data-i="1"><div class="card"><div class="n">Step 2 of 5</div><h3>Color each week by demand.</h3><p>Indigo is a slow week, yellow a busy one. The diagonal is mostly demand: it sorts the cloud along both axes at once.</p></div></div>
-        <div class="step" data-i="2"><div class="card"><div class="n">Step 3 of 5</div><h3>Predict revenue from demand. Subtract.</h3><div class="eq"><i class="Y">Ỹ</i><span class="op">=</span><i class="Y">Y</i><span class="op">−</span><i class="Y hat">ℓ</i>(<i>X</i>),&nbsp;&nbsp;<i class="Y">ℓ</i>(<i>X</i>) = E[<i class="Y">Y</i> | <i>X</i>]</div><p>The cloud collapses vertically. And the slope overshoots the other way, to <b class="mono" data-stat="show.half">0.17</b>. Spend still carries demand's fingerprint, and revenue no longer does, so the two stop lining up.</p></div></div>
-        <div class="step" data-i="3"><div class="card"><div class="n">Step 4 of 5</div><h3>Predict spend from demand. Subtract.</h3><div class="eq"><i class="D">D̃</i><span class="op">=</span><i class="D">D</i><span class="op">−</span><i class="D hat">m</i>(<i>X</i>),&nbsp;&nbsp;<i class="D">m</i>(<i>X</i>) = E[<i class="D">D</i> | <i>X</i>]</div><p>Now the cloud collapses sideways. What remains of spend is the part demand cannot predict: budget surprises. The colors scramble because demand no longer sorts anything.</p></div></div>
-        <div class="step" data-i="4"><div class="card"><div class="n">Step 5 of 5</div><h3>Regress residual on residual.</h3><div class="eq"><i class="T hat">θ</i><span class="op">=</span><span class="frac"><span><span class="sum">Σ</span> <i class="D">D̃</i><sub><i>i</i></sub><i class="Y">Ỹ</i><sub><i>i</i></sub></span><span><span class="sum">Σ</span> <i class="D">D̃</i><sub><i>i</i></sub>²</span></span></div><p>The slope settles at <b class="mono T" data-stat="show.ortho">0.49</b>. Same ridge learner as Attempt 2, same penalty. The only change is that it was used twice, for prediction, and kept away from the coefficient.</p></div></div>
+        <div class="step" data-i="0"><div class="card"><div class="n">Step 1 of 5</div><h3>Start from the raw weeks.</h3><p>Spend runs across and revenue runs up. The fitted slope is <b class="mono" data-stat="show.naive">1.42</b>, the same wrong answer as before.</p></div></div>
+        <div class="step" data-i="1"><div class="card"><div class="n">Step 2 of 5</div><h3>Color each week by demand.</h3><p>Indigo marks a slow week and yellow a busy one. Demand sorts the weeks along both axes at once, which creates most of the diagonal.</p></div></div>
+        <div class="step" data-i="2"><div class="card"><div class="n">Step 3 of 5</div><h3>Predict revenue from demand. Subtract.</h3><div class="eq"><i class="Y">Ỹ</i><span class="op">=</span><i class="Y">Y</i><span class="op">−</span><i class="Y hat">ℓ</i>(<i>X</i>),&nbsp;&nbsp;<i class="Y">ℓ</i>(<i>X</i>) = E[<i class="Y">Y</i> | <i>X</i>]</div><p>The cloud flattens vertically, and the slope now falls too far, to <b class="mono" data-stat="show.half">0.17</b>. Spend still moves with demand, but revenue no longer does. So the two stop lining up.</p></div></div>
+        <div class="step" data-i="3"><div class="card"><div class="n">Step 4 of 5</div><h3>Predict spend from demand. Subtract.</h3><div class="eq"><i class="D">D̃</i><span class="op">=</span><i class="D">D</i><span class="op">−</span><i class="D hat">m</i>(<i>X</i>),&nbsp;&nbsp;<i class="D">m</i>(<i>X</i>) = E[<i class="D">D</i> | <i>X</i>]</div><p>Now the cloud narrows sideways. What's left of spend is the part demand can't predict, the budget surprises. The colors mix because demand no longer sorts the weeks.</p></div></div>
+        <div class="step" data-i="4"><div class="card"><div class="n">Step 5 of 5</div><h3>Regress residual on residual.</h3><div class="eq"><i class="T hat">θ</i><span class="op">=</span><span class="frac"><span><span class="sum">Σ</span> <i class="D">D̃</i><sub><i>i</i></sub><i class="Y">Ỹ</i><sub><i>i</i></sub></span><span><span class="sum">Σ</span> <i class="D">D̃</i><sub><i>i</i></sub>²</span></span></div><p>The slope settles at <b class="mono T" data-stat="show.ortho">0.49</b>. This uses the same model and penalty as Attempt 2. The difference is how it's used. It makes two predictions and never estimates the spend effect itself.</p></div></div>
       </div>
     </div>
   </div>
@@ -830,8 +830,8 @@ h2.rv,h1.rv{transform:translateY(90px)}
         <div class="stat-row"><span>mean <b data-stat="ortho.mean">0.50</b></span><span>95% CI coverage <b data-stat="ortho.cov">94%</b></span></div>
       </div>
       <div class="prose">
-        <p>Run it 300 times and the estimates land on the truth, with intervals that cover it about as often as they claim to.</p>
-        <p>Notice what did not change: the learner is still regularized, so <span class="m Y"><span class="hat">ℓ</span></span> and <span class="m D"><span class="hat">m</span></span> are still shrunk and still wrong in exactly the way <span class="m Y">ĝ</span> was. The estimate simply stopped caring. The next section is about why.</p>
+        <p>Across 300 datasets, the estimates center on the truth. The 95% intervals contain it about 95% of the time, as they should.</p>
+        <p>The model still uses the same penalty. So <span class="m Y"><span class="hat">ℓ</span></span> and <span class="m D"><span class="hat">m</span></span> are shrunk and wrong in the same way <span class="m Y">ĝ</span> was. This time the errors don't reach the estimate. The next section explains why.</p>
       </div>
     </div>
   </div>
@@ -843,23 +843,23 @@ h2.rv,h1.rv{transform:translateY(90px)}
     <div class="center">
       <div class="eyebrow idea"><span class="tag">Why it works</span> Neyman orthogonality</div>
       <h2>Small mistakes stop mattering.</h2>
-      <p class="lede">Both estimators solve an equation, a <b>score</b>, set to zero on average. One score is fragile. The other is built so that nuisance errors cannot move it at first order.</p>
+      <p class="lede">Each estimator solves an equation, called a <b>score</b>, that averages to zero at the right answer. One score breaks easily. The other is built so that small errors in the helper models barely move it.</p>
     </div>
     <div class="scores">
       <div class="score">
         <div class="eyebrow attempt"><span class="tag">Plug-in score</span></div>
         <div class="eq"><i>ψ</i><span class="op">=</span>(<i class="Y">Y</i><span class="op">−</span><i class="T">θ</i><i class="D">D</i><span class="op">−</span><i class="Y">g</i>(<i>X</i>))<span class="op">·</span><i class="D">D</i></div>
-        <p>Perturb <span class="m Y">g</span> by a small error and the expected score shifts in proportion. Its derivative in that direction is <span class="m">−E[m(X)·δ(X)]</span>, which is not zero whenever the error lines up with spend.</p>
+        <p>Nudge <span class="m Y">g</span> off by a small error, and the score moves by a matching amount. Its slope in that direction is <span class="m">−E[m(X)·δ(X)]</span>. That slope stays away from zero whenever the error lines up with spend.</p>
       </div>
       <div class="score">
         <div class="eyebrow fix"><span class="tag">Orthogonal score</span></div>
         <div class="eq"><i>ψ</i><span class="op">=</span>(<i class="Y">Y</i><span class="op">−</span><i class="Y">ℓ</i>(<i>X</i>)<span class="op">−</span><i class="T">θ</i>(<i class="D">D</i><span class="op">−</span><i class="D">m</i>(<i>X</i>)))<span class="op">·</span>(<i class="D">D</i><span class="op">−</span><i class="D">m</i>(<i>X</i>))</div>
-        <p>Its derivative with respect to both <span class="m Y">ℓ</span> and <span class="m D">m</span> is zero at the truth. An error in one model gets multiplied by a residual that is uncorrelated with it, so only the product of two errors survives.</p>
+        <p>At the right answer, its slope with respect to both <span class="m Y">ℓ</span> and <span class="m D">m</span> is zero. An error in one model gets multiplied by a residual that has nothing to do with it. Only the product of the two errors is left.</p>
       </div>
     </div>
     <div class="two wide-l">
       <div class="fig">
-        <div class="title"><span>Bias in the estimate as nuisances drift</span><span>population values</span></div>
+        <div class="title"><span>Bias as the helper models drift</span><span>population values</span></div>
         <canvas id="orthCv" style="height:clamp(260px,32vw,360px)" aria-label="Bias against nuisance error: a straight line for the plug-in score and a flat-bottomed parabola for the orthogonal score"></canvas>
         <div class="ctl"><label for="rS">Nuisance error <span class="m">r</span></label><input id="rS" type="range" min="-1" max="1" step="0.01" value="0.3"><span class="mono" id="rV">0.30</span></div>
         <div class="meters">
@@ -869,12 +869,12 @@ h2.rv,h1.rv{transform:translateY(90px)}
       </div>
       <div class="stack">
         <div class="prose">
-          <p>Push both nuisance functions off the truth by <span class="m">r</span>, in the direction that tracks spend. The plug-in bias is a straight line through zero: <span class="m">bias ∝ r</span>. The orthogonal bias is a valley with a flat floor: <span class="m">bias ∝ r²</span>.</p>
-          <p>That flat floor is the formal condition. With <span class="m">η</span> standing for the nuisance functions,</p>
+          <p>Drag the slider to push both helper models (the nuisance functions) off the truth by <span class="m">r</span>, in the direction that tracks spend. The plug-in bias grows in a straight line, <span class="m">bias ∝ r</span>. The orthogonal bias stays flat near zero and grows only with the square, <span class="m">bias ∝ r²</span>.</p>
+          <p>That flat bottom is what Neyman orthogonality means. Written out, with <span class="m">η</span> standing for the helper models:</p>
         </div>
         <div class="eqbox"><div class="eq" style="font-size:clamp(20px,2.4vw,26px)"><span>∂</span><sub><i>η</i></sub>&thinsp;E[<i>ψ</i>(<i>W</i>; <i class="T">θ</i><sub>0</sub>, <i>η</i><sub>0</sub>)][<i>η</i><span class="op">−</span><i>η</i><sub>0</sub>]<span class="op">=</span>0</div></div>
         <div class="prose">
-          <p>Why squared matters: machine learners usually converge slower than <span class="m">n<sup>−1/2</sup></span>. If each nuisance is off by <span class="m">n<sup>−1/4</sup></span>, the plug-in bias is <span class="m">n<sup>−1/4</sup></span> and swamps the noise, while the orthogonal bias is <span class="m">n<sup>−1/4</sup>·n<sup>−1/4</sup> = n<sup>−1/2</sup></span>, the same size as the noise and no bigger. The requirement is only that <span class="m">‖<span class="hat">m</span> − m‖·‖<span class="hat">ℓ</span> − ℓ‖ = o(n<sup>−1/2</sup>)</span>.</p>
+          <p>The square matters because machine learning models learn slowly. They usually improve more slowly than <span class="m">n<sup>−1/2</sup></span> as data grows. Say each helper model is off by <span class="m">n<sup>−1/4</sup></span>. The plug-in bias is then <span class="m">n<sup>−1/4</sup></span>, which drowns out the noise. The orthogonal bias is <span class="m">n<sup>−1/4</sup>·n<sup>−1/4</sup> = n<sup>−1/2</sup></span>, the same size as the noise. So the only requirement is <span class="m">‖<span class="hat">m</span> − m‖·‖<span class="hat">ℓ</span> − ℓ‖ = o(n<sup>−1/2</sup>)</span>.</p>
         </div>
       </div>
     </div>
@@ -887,13 +887,13 @@ h2.rv,h1.rv{transform:translateY(90px)}
     <div class="center">
       <div class="eyebrow attempt"><span class="tag">Attempt 3</span> Upgrade to a sharper learner</div>
       <h2>A better fit. <span class="bad">A worse answer.</span></h2>
-      <p class="lede">The recipe works in simulation, so Dana takes it to the real data. The ridge model looks stiff there, so she swaps the revenue model for something far more flexible.</p>
+      <p class="lede">The method works in simulation, so Dana tries it on real data. There the ridge model looks too stiff. She swaps the revenue model for a much more flexible one.</p>
     </div>
     <div class="two">
       <div class="prose">
-        <p>The new revenue model fits beautifully. In-sample <span class="m">R²</span> climbs from <b data-stat="show.r2r">0.84</b> to <b data-stat="show.r2k">0.92</b>. Then the estimate falls to <b class="bad" data-stat="in.mean">0.25</b>, half the truth. Finance would read that as "paid social barely works" and cut it.</p>
-        <p>The learner is a nearest-neighbour average that, in-sample, counts each week as one of its own two neighbours. Any flexible model that nearly interpolates its training data, a deep forest or a long boosting run, behaves the same way to some degree.</p>
-        <p>Look at a single week. Its revenue is what demand predicts, plus the effect of that week's surprise spend <span class="m">θv</span>, plus noise. A model trained on that very week has seen its revenue, so its prediction reaches up and claims part of the surprise. Subtract the prediction, and you subtract part of the effect you were trying to measure.</p>
+        <p>The new model fits very well. Its <span class="m">R²</span> on the data it trained on climbs from <b data-stat="show.r2r">0.84</b> to <b data-stat="show.r2k">0.92</b>. Then the estimate drops to <b class="bad" data-stat="in.mean">0.25</b>, half the truth. Finance would conclude that paid social barely works and cut it.</p>
+        <p>The new model averages each week with its nearest neighbour. On its training data, each week counts as one of its own two neighbours. Deep random forests and long boosting runs do something similar. Any model that nearly memorizes its training data has this problem to some degree.</p>
+        <p>Take one week. Its revenue has three parts: what demand predicts, the effect of that week's unplanned spend <span class="m">θv</span>, and noise. A model trained on that same week has already seen its revenue. So its prediction absorbs part of the effect. When you subtract the prediction, you subtract part of the effect you wanted to measure.</p>
       </div>
       <div class="fig">
         <div class="title"><span>Anatomy of one week</span><span>revenue <span class="m">Y</span><sub>i</sub></span></div>
@@ -922,7 +922,7 @@ h2.rv,h1.rv{transform:translateY(90px)}
               <span><i style="background:var(--cth)"></i><em>θ·v<sub>i</sub>: the effect of this week's surprise spend</em></span>
               <span><i style="background:repeating-linear-gradient(135deg,var(--mu) 0 3px,transparent 3px 8px)"></i><em>ε<sub>i</sub>: noise</em></span>
             </div>
-            <div><div class="keep" id="keep">100%</div><div class="mu" style="font-size:15px" id="keepTxt">of the green effect survives in the residual Ỹ<sub>i</sub>. Above the orange line is what the regression gets to see.</div></div>
+            <div><div class="keep" id="keep">100%</div><div class="mu" style="font-size:15px" id="keepTxt">of the green effect is left in the residual Ỹ<sub>i</sub>. The regression only sees what sits above the orange line.</div></div>
           </div>
         </div>
       </div>
@@ -930,7 +930,7 @@ h2.rv,h1.rv{transform:translateY(90px)}
     <div class="two wide-r">
       <div class="eqbox">
         <div class="eq"><span class="brace B"><span>(1/√<i>n</i>) <span class="sum">Σ</span> <i class="D">v</i><sub><i>i</i></sub>(<i class="Y hat">ℓ</i> − <i class="Y">ℓ</i>)(<i>X</i><sub><i>i</i></sub>)</span><span class="under">mean zero only if <span class="hat">ℓ</span> never saw row i</span></span></div>
-        <div class="cap">Trained on row <span class="m">i</span>, <span class="m"><span class="hat">ℓ</span>(Xᵢ)</span> contains a slice of <span class="m">θvᵢ</span>, and this term picks up a mean of roughly <span class="m">√n·θ·σ²ᵥ·wᵢᵢ</span>, where <span class="m">wᵢᵢ</span> is the weight the model gives a row's own outcome. Here <span class="m">wᵢᵢ = ½</span>, and the estimate lands at almost exactly half the truth.</div>
+        <div class="cap">If the model trained on row <span class="m">i</span>, then <span class="m"><span class="hat">ℓ</span>(Xᵢ)</span> holds part of <span class="m">θvᵢ</span>. This term then averages about <span class="m">√n·θ·σ²ᵥ·wᵢᵢ</span>, where <span class="m">wᵢᵢ</span> is the weight the model gives a row's own outcome. Here <span class="m">wᵢᵢ = ½</span>, so the estimate lands at almost exactly half the truth.</div>
       </div>
       <div class="fig hist">
         <div class="title"><span>Estimates across 300 datasets</span><span class="pill no">Biased</span></div>
@@ -947,7 +947,7 @@ h2.rv,h1.rv{transform:translateY(90px)}
     <div class="center">
       <div class="eyebrow fix"><span class="tag">The second fix</span> Cross-fitting</div>
       <h2>Never grade a week with a model that <span class="grad">saw&nbsp;it.</span></h2>
-      <p class="lede">Split the weeks into five folds. Fit both nuisance models on four, compute residuals on the fifth, and rotate until every week has been scored by a model that never trained on it.</p>
+      <p class="lede">Split the weeks into five groups, called folds. Train both helper models on four folds and compute residuals on the fifth. Rotate until every week has been scored by a model that never saw it.</p>
     </div>
     <div class="two wide-l">
       <div class="fig foldfig">
@@ -958,8 +958,8 @@ h2.rv,h1.rv{transform:translateY(90px)}
       </div>
       <div class="stack">
         <div class="prose">
-          <p>Each residual now comes from a model that has never seen that row's noise, so the troublesome sum has mean zero again. Nothing is wasted: every week trains the nuisance models four times and is scored once, and all 500 residuals go into a single residual-on-residual regression.</p>
-          <p>Same memorizing learner as Attempt 3. Same data. The only change is which rows each prediction was allowed to learn from.</p>
+          <p>Each residual now comes from a model that never saw that week's noise. So the problem term averages to zero again. No data goes to waste. Every week helps train the models four times and gets scored once. All 500 residuals then go into one residual-on-residual regression.</p>
+          <p>This is the same memorizing model as in Attempt 3, on the same data. The only change is which weeks each prediction could learn from.</p>
         </div>
         <div class="fig hist">
           <div class="title"><span>Estimates across 300 datasets</span><span class="pill ok">Centered</span></div>
@@ -978,16 +978,16 @@ h2.rv,h1.rv{transform:translateY(90px)}
     <div class="center">
       <div class="eyebrow">The scorecard</div>
       <h2>Same data. Five&nbsp;answers.</h2>
-      <p class="lede">Each card shows where its estimates fell across 300 datasets, against the truth of 0.50, and how often its 95% interval actually contained it.</p>
+      <p class="lede">Each card shows where one method landed across 300 datasets, compared with the truth of 0.50. It also shows how often its 95% interval actually contained the truth.</p>
     </div>
     <div class="cards" id="cards"></div>
     <div class="payoff center narrow">
       <div class="eyebrow fix"><span class="tag">Dana's number</span></div>
       <div class="big-num grad" style="margin-top:18px"><span data-stat="show.dml">0.51</span></div>
-      <p class="lede" style="margin-top:18px">95% interval <b data-stat="show.ci">0.37 to 0.65</b>. Each dollar of paid social brings back about fifty cents of revenue.</p>
+      <p class="lede" style="margin-top:18px">95% interval <b data-stat="show.ci">0.37 to 0.65</b>. Each extra dollar of paid social brings back about fifty cents in revenue.</p>
       <div class="prose" style="margin:28px auto 0;text-align:left">
-        <p>The first regression would have had Finance nearly tripling the budget on a channel that loses money at the margin. The sharp learner without cross-fitting would have had them gut it. The number they get instead is the one the data support, provided the identifying assumption from Part I holds.</p>
-        <p>One honest footnote from the scorecard: with the stiff ridge learner, partialling out alone already worked. Cross-fitting is what lets you use any learner you like on 140 messy columns, which is the reason to reach for machine learning in the first place.</p>
+        <p>The first regression would have led Finance to nearly triple the budget for a channel that loses money on each extra dollar. The flexible model without cross-fitting would have led them to cut it. The number they get now is the one the data support, as long as the assumption from Part I holds.</p>
+        <p>The scorecard also shows something less flattering. With the stiff ridge model, partialling out worked fine without cross-fitting. Cross-fitting is what lets you use any model you like on 140 messy columns. That freedom is why you would reach for machine learning in the first place.</p>
       </div>
     </div>
   </div>
@@ -1001,11 +1001,11 @@ h2.rv,h1.rv{transform:translateY(90px)}
       <h2>The recipe.</h2>
     </div>
     <ol class="recipe">
-      <li><h3>Split the rows into K folds.</h3><div class="body">Five is a common default. Shuffle first, unless the data has time structure that needs blocked folds.</div></li>
-      <li><h3>Fit both nuisance models off-fold.</h3><div class="body">For each fold k, train on every other fold:<div class="eq"><i class="Y hat">ℓ</i><sub>−k</sub>(<i>X</i>) ≈ E[<i class="Y">Y</i>|<i>X</i>],&nbsp; <i class="D hat">m</i><sub>−k</sub>(<i>X</i>) ≈ E[<i class="D">D</i>|<i>X</i>]</div></div></li>
+      <li><h3>Split the rows into K folds.</h3><div class="body">Five folds is a common choice. Shuffle the rows first, unless the data run over time and need folds made of whole time blocks.</div></li>
+      <li><h3>Fit both nuisance models off-fold.</h3><div class="body">For each fold k, train both models on all the other folds:<div class="eq"><i class="Y hat">ℓ</i><sub>−k</sub>(<i>X</i>) ≈ E[<i class="Y">Y</i>|<i>X</i>],&nbsp; <i class="D hat">m</i><sub>−k</sub>(<i>X</i>) ≈ E[<i class="D">D</i>|<i>X</i>]</div></div></li>
       <li><h3>Residualize the held-out rows.</h3><div class="body"><div class="eq"><i class="Y">Ỹ</i><sub><i>i</i></sub> = <i class="Y">Y</i><sub><i>i</i></sub> − <i class="Y hat">ℓ</i><sub>−k(i)</sub>(<i>X</i><sub><i>i</i></sub>),&nbsp; <i class="D">D̃</i><sub><i>i</i></sub> = <i class="D">D</i><sub><i>i</i></sub> − <i class="D hat">m</i><sub>−k(i)</sub>(<i>X</i><sub><i>i</i></sub>)</div></div></li>
       <li><h3>Regress residual on residual, pooled.</h3><div class="body"><div class="eq"><i class="T hat">θ</i> = <span class="sum">Σ</span><i class="D">D̃</i><sub><i>i</i></sub><i class="Y">Ỹ</i><sub><i>i</i></sub> / <span class="sum">Σ</span><i class="D">D̃</i><sub><i>i</i></sub>²</div></div></li>
-      <li><h3>Get the standard error from the orthogonal score.</h3><div class="body">With <span class="m"><span class="hat">ψ</span>ᵢ = (Ỹᵢ − <span class="hat">θ</span>D̃ᵢ)·D̃ᵢ</span>:<div class="eq"><span>SE</span>(<i class="T hat">θ</i>) = <span class="frac"><span>√( <span class="frac" style="font-size:.85em"><span>1</span><span><i>n</i></span></span> <span class="sum">Σ</span> <i class="hat">ψ</i><sub><i>i</i></sub>² )</span><span>√<i>n</i> · <span class="frac" style="font-size:.85em"><span>1</span><span><i>n</i></span></span> <span class="sum">Σ</span> <i class="D">D̃</i><sub><i>i</i></sub>²</span></span></div>Repeat the whole thing over several random fold splits and take the median if one split feels too lucky.</div></li>
+      <li><h3>Get the standard error from the orthogonal score.</h3><div class="body">With <span class="m"><span class="hat">ψ</span>ᵢ = (Ỹᵢ − <span class="hat">θ</span>D̃ᵢ)·D̃ᵢ</span>:<div class="eq"><span>SE</span>(<i class="T hat">θ</i>) = <span class="frac"><span>√( <span class="frac" style="font-size:.85em"><span>1</span><span><i>n</i></span></span> <span class="sum">Σ</span> <i class="hat">ψ</i><sub><i>i</i></sub>² )</span><span>√<i>n</i> · <span class="frac" style="font-size:.85em"><span>1</span><span><i>n</i></span></span> <span class="sum">Σ</span> <i class="D">D̃</i><sub><i>i</i></sub>²</span></span></div>If one split looks lucky, repeat the whole process with several random splits and report the median.</div></li>
     </ol>
 <pre class="code"><span class="k1">import</span> numpy <span class="k1">as</span> np
 <span class="k1">from</span> sklearn.model_selection <span class="k1">import</span> KFold, cross_val_predict
@@ -1023,9 +1023,9 @@ psi = (y_res - theta * d_res) * d_res               <span class="c1"># orthogona
 se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span class="n1">2</span>)**<span class="n1">2</span> / <span class="f1">len</span>(y))
 <span class="f1">print</span>(<span class="s1">f"theta = {theta:.3f} ± {1.96 * se:.3f}"</span>)</pre>
     <div class="notes">
-      <div><h3>Any learner, within reason</h3><p>Lasso, forests, boosting, neural nets. What matters is that the product of the two nuisance errors shrinks faster than <span class="m">n<sup>−1/2</sup></span>. Orthogonality forgives small errors, not huge ones; the playground below shows where it gives out.</p></div>
-      <div><h3>Other targets, same two ingredients</h3><p>A binary treatment's average effect uses the AIPW score; instruments use the partially linear IV score. Each pairs an orthogonal score with cross-fitting.</p></div>
-      <div><h3>What it cannot fix</h3><p>Double ML handles the shape of confounding, not its absence from your data. If a driver of both spend and revenue is missing from <span class="m">X</span>, the estimate is biased however good the learners are.</p></div>
+      <div><h3>Any learner, within reason</h3><p>Lasso, random forests, boosting and neural nets all work. The two helper models' errors, multiplied together, need to shrink faster than <span class="m">n<sup>−1/2</sup></span>. Orthogonality forgives small errors only. The playground below shows where it stops working.</p></div>
+      <div><h3>Other targets, same two ingredients</h3><p>For a yes-or-no treatment, the average effect uses the AIPW score. For instruments, it uses the partially linear IV score. Each one pairs an orthogonal score with cross-fitting.</p></div>
+      <div><h3>What it cannot fix</h3><p>Double ML handles confounders that have odd shapes. It can do nothing about a confounder that is missing from your data. If something drives both spend and revenue and is not in <span class="m">X</span>, the estimate is biased, however good the models are.</p></div>
     </div>
   </div>
 </section>
@@ -1036,14 +1036,14 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
     <div class="center">
       <div class="eyebrow">Playground</div>
       <h2>Try to <span class="grad">break it.</span></h2>
-      <p class="lede">Change the world or the learners, and 200 new datasets are simulated on the spot. Watch which estimators move and which stay put.</p>
+      <p class="lede">Change the simulated world or the models, and the page simulates 200 new datasets. Watch which methods move and which stay put.</p>
     </div>
     <div class="pg">
       <div class="panel">
         <div class="knob"><div class="row"><label for="kN">Weeks per dataset</label><output id="oN">500</output></div><input id="kN" type="range" min="0" max="3" step="1" value="1"><p>More data shrinks noise. It does not shrink bias.</p></div>
-        <div class="knob"><div class="row"><label for="kC">Confounding strength</label><output id="oC">1.0×</output></div><input id="kC" type="range" min="0" max="2" step="0.1" value="1"><p>Scales how strongly demand drives revenue. At zero, even OLS is fine.</p></div>
-        <div class="knob"><div class="row"><label for="kL">Ridge penalty λ</label><output id="oL">10</output></div><input id="kL" type="range" min="0" max="6" step="1" value="3"><p>Regularization of the smooth learner, used for <span class="m">ĝ</span>, <span class="m"><span class="hat">m</span></span> and, in the plug-in and partial-out methods, <span class="m"><span class="hat">ℓ</span></span>.</p></div>
-        <div class="knob"><div class="row"><label for="kK">Revenue model neighbours</label><output id="oK">2</output></div><input id="kK" type="range" min="1" max="40" step="1" value="2"><p>The flexible learner. Fewer neighbours means more memorization in-sample.</p></div>
+        <div class="knob"><div class="row"><label for="kC">Confounding strength</label><output id="oC">1.0×</output></div><input id="kC" type="range" min="0" max="2" step="0.1" value="1"><p>Sets how strongly demand drives revenue. At zero, even a plain regression gets it right.</p></div>
+        <div class="knob"><div class="row"><label for="kL">Ridge penalty λ</label><output id="oL">10</output></div><input id="kL" type="range" min="0" max="6" step="1" value="3"><p>How much the smooth model is held back, used for <span class="m">ĝ</span>, <span class="m"><span class="hat">m</span></span> and, in the plug-in and partial-out methods, <span class="m"><span class="hat">ℓ</span></span>.</p></div>
+        <div class="knob"><div class="row"><label for="kK">Revenue model neighbours</label><output id="oK">2</output></div><input id="kK" type="range" min="1" max="40" step="1" value="2"><p>The flexible model. Fewer neighbours means it memorizes more of its training data.</p></div>
         <div class="prog" aria-hidden="true"><i id="pgBar"></i></div>
         <div class="row" style="display:flex;gap:10px;align-items:center;justify-content:space-between"><button class="btn" id="pgRun" type="button">Run 200 datasets</button><button class="btn ghost" id="pgReset" type="button">Reset</button></div>
       </div>
@@ -1054,9 +1054,9 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
           <div class="fig"><div class="title"><span>Double ML</span><span class="pill" id="pD">·</span></div><canvas id="pgC"></canvas><div class="stat-row"><span>mean <b id="pDm">…</b></span><span>coverage <b id="pDc">…</b></span></div></div>
         </div>
         <div class="hints">
-          <div class="hint"><b>Raise the penalty.</b> The plug-in drifts upward as <span class="m">ĝ</span> shrinks. Double ML barely notices until λ gets extreme.</div>
-          <div class="hint"><b>Drop to 1 neighbour.</b> In-sample, the revenue model memorizes every week and the estimate collapses to zero.</div>
-          <div class="hint"><b>Max out the penalty.</b> Even Double ML bends at λ = 1000. Orthogonality needs both models to be decent, not perfect.</div>
+          <div class="hint"><b>Raise the penalty.</b> The plug-in estimate drifts up as <span class="m">ĝ</span> flattens. Double ML barely moves until λ gets extreme.</div>
+          <div class="hint"><b>Drop to 1 neighbour.</b> Without cross-fitting, the revenue model memorizes every week, and the estimate falls to zero.</div>
+          <div class="hint"><b>Max out the penalty.</b> Even Double ML drifts at λ = 1000. Orthogonality needs both models to be decent. They don't have to be perfect.</div>
         </div>
       </div>
     </div>
@@ -1068,7 +1068,7 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
   <div class="wrap">
     <div class="kicker" style="color:var(--cd)">Part III · Estimating ad lift</div>
     <h2 class="h1b">The holdout you <span class="grad">never ran.</span></h2>
-    <p class="lede">A campaign is over. Some customers saw it, most did not, and the platform chose who. Matching, weighting and outcome models each get one shot at the counterfactual. <b>Doubly robust estimation gets two.</b></p>
+    <p class="lede">The campaign is over. Some customers saw the ads, most didn't, and the platform picked who. Matching, weighting and outcome models each get one try at guessing what would have happened without the ads. <b>A doubly robust estimate gets two.</b></p>
     <div class="stage">
       <canvas id="p2hero" style="height:clamp(320px,46vw,540px)" aria-label="Customers plotted by purchase intent and weeks since last order. Exposed customers light up in a U-shaped band, then draw lines to matched unexposed customers; the lines first join distant recency values, then re-route to close look-alikes"></canvas>
       <div class="readout">
@@ -1081,8 +1081,8 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
     <div class="specs">
       <div class="spec"><span class="v T" data-stat="p2.truthLift">+24%</span><span class="k">the true lift</span></div>
       <div class="spec"><span class="v">5,000</span><span class="k">customers per campaign</span></div>
-      <div class="spec"><span class="v">2</span><span class="k">nuisance models</span></div>
-      <div class="spec"><span class="v">1,150</span><span class="k">campaigns simulated in a background thread</span></div>
+      <div class="spec"><span class="v">2</span><span class="k">supporting models</span></div>
+      <div class="spec"><span class="v">1,150</span><span class="k">campaigns simulated in your browser</span></div>
     </div>
   </div>
 </header>
@@ -1096,9 +1096,9 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
     </div>
     <div class="two wide-r">
       <div class="prose">
-        <p>A few months after the paid social answer, Dana gets a harder question. The lifecycle team ran a six-week win-back campaign on connected TV and paid social, aimed at the customer file. Nobody set aside a holdout because the media plan had no room for one. The platform optimized delivery and decided by itself which customers saw ads.</p>
-        <p>The platform's dashboard says exposed customers converted at <b data-stat="p2.y1">34.3%</b> and unexposed customers at <b data-stat="p2.y0">11.0%</b>, a lift of <b class="bad" data-stat="p2.naiveLift">+213%</b>. The brand team wants to triple the next flight on the strength of that number. Dana has to tell the CMO what the campaign actually did before the money moves.</p>
-        <p>She has two features from the CRM for each of 5,000 customers: a purchase-intent score from browsing, and weeks since the last order. She does not have the platform's targeting rule. Nobody outside the platform does.</p>
+        <p>A few months after the paid social work, Dana gets a harder question. The lifecycle team ran a six-week win-back campaign on connected TV and paid social, aimed at existing customers. Nobody held back a control group, because the media plan had no room for one. The platform decided on its own which customers saw the ads.</p>
+        <p>The platform's dashboard says customers who saw the ads converted at <b data-stat="p2.y1">34.3%</b>, against <b data-stat="p2.y0">11.0%</b> for those who didn't. That's a lift of <b class="bad" data-stat="p2.naiveLift">+213%</b>. The brand team wants to triple the next flight because of it. Before the money moves, Dana has to tell the CMO what the campaign really did.</p>
+        <p>For each of 5,000 customers, she has two fields from the CRM. One is a purchase-intent score from browsing. The other is the number of weeks since their last order. She doesn't have the platform's targeting rule, and nobody outside the platform does.</p>
       </div>
       <div class="fig">
         <svg class="dag" viewBox="0 0 520 330" role="img" aria-label="Causal diagram: customer features X cause exposure D and conversion Y; exposure D causes conversion Y; the effect among the exposed is the ATT">
@@ -1118,19 +1118,19 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
           <text x="370" y="150" font-size="22" fill="var(--cy)">μ₀(X)</text>
           <text x="260" y="248" text-anchor="middle" font-size="22" fill="var(--cth)" font-style="normal">ATT</text>
         </svg>
-        <div class="cap center">Two models live on the two diagonal arrows: the <span class="D">propensity</span> <span class="m D">e(X)</span>, the chance a customer was exposed, and the <span class="Y">outcome model</span> <span class="m Y">μ₀(X)</span>, the chance they convert without ads.</div>
+        <div class="cap center">Each diagonal arrow gets its own model. The <span class="D">propensity</span> <span class="m D">e(X)</span> is the chance a customer saw the ads. The <span class="Y">outcome model</span> <span class="m Y">μ₀(X)</span> is the chance they buy without ads.</div>
       </div>
     </div>
     <div class="eqbox" style="margin-top:clamp(40px,6vw,72px)">
       <div class="eq"><span class="r">ATT</span><span class="op">=</span>E[<i class="Y">Y</i>(1)<span class="op">−</span><i class="Y">Y</i>(0) | <i class="D">D</i> = 1]</div>
       <div class="eq">E[<i class="Y">Y</i>(0) | <i class="D">D</i> = 1]<span class="op">=</span>E[<i class="Y">μ</i><sub>0</sub>(<i>X</i>) | <i class="D">D</i> = 1],&nbsp;&nbsp;<i class="Y">μ</i><sub>0</sub>(<i>X</i>) = E[<i class="Y">Y</i> | <i class="D">D</i> = 0, <i>X</i>]</div>
       <div class="eq"><span class="r">Lift</span><span class="op">=</span><span class="frac"><span>ATT</span><span>E[<i class="Y">Y</i>(0) | <i class="D">D</i> = 1]</span></span></div>
-      <div class="cap">The middle line is Part I's identification result: among customers with the same <span class="m">X</span>, the unexposed stand in for what the exposed would have done without ads. From here on it is taken as given. The question is how to estimate it.</div>
+      <div class="cap">The middle line comes from Part I. Among customers with the same <span class="m">X</span>, the ones who didn't see the ads show what the exposed customers would have done without them. From here on we take that as given and focus on estimating it.</div>
     </div>
     <div class="tiles">
-      <div class="tile"><span class="k">How the platform targets</span><span class="v">logit <i class="D">e</i> = −0.95 + 0.8·int + 0.6·(rec² − 1)</span><p>Rising in intent and U-shaped in recency. The platform retargets recent buyers and chases lapsed ones.</p></div>
-      <div class="tile"><span class="k">How customers convert anyway</span><span class="v">logit <i class="Y">μ</i><sub>0</sub> = −2 + 0.8·int − 0.3·rec + 0.7·(rec² − 1)</span><p>Customers at both ends of the recency curve convert more on their own. That is the same U the platform targets.</p></div>
-      <div class="tile"><span class="k">The truth, set by us</span><span class="v"><span class="T">ATT = <span data-stat="p2.truthAtt">6.8</span> pp</span></span><p>Ads add 0.35 + 0.15·intent to the log-odds of converting. Among exposed customers that is a lift of <b class="T" data-stat="p2.truthLift">+24%</b>.</p></div>
+      <div class="tile"><span class="k">How the platform targets</span><span class="v">logit <i class="D">e</i> = −0.95 + 0.8·int + 0.6·(rec² − 1)</span><p>Higher intent means more ads. Recency has a U-shape, because the platform retargets recent buyers and chases lapsed ones.</p></div>
+      <div class="tile"><span class="k">How customers convert anyway</span><span class="v">logit <i class="Y">μ</i><sub>0</sub> = −2 + 0.8·int − 0.3·rec + 0.7·(rec² − 1)</span><p>Customers at both ends of the recency range buy more on their own. That's the same U the platform targets.</p></div>
+      <div class="tile"><span class="k">The truth, set by us</span><span class="v"><span class="T">ATT = <span data-stat="p2.truthAtt">6.8</span> pp</span></span><p>The ads add 0.35 + 0.15·intent to the log-odds of buying. For the customers who saw them, that's a lift of <b class="T" data-stat="p2.truthLift">+24%</b>.</p></div>
     </div>
   </div>
 </section>
@@ -1140,7 +1140,7 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
   <div class="wrap">
     <div class="center">
       <div class="eyebrow attempt"><span class="tag">Attempt 1</span> Read the dashboard</div>
-      <h2><span class="bad" data-stat="p2.naiveLift">+213%</span>. The ads get credit for the targeting.</h2>
+      <h2><span class="bad" data-stat="p2.naiveLift">+213%</span>. The ads get credit for who they reached.</h2>
     </div>
     <div class="two wide-l">
       <div class="fig">
@@ -1148,9 +1148,9 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
         <canvas id="p2bars" style="height:clamp(280px,34vw,380px)" aria-label="Bars: unexposed conversion rate, exposed conversion rate, and the rate exposed customers would have had without ads"></canvas>
       </div>
       <div class="prose">
-        <p>The dashboard compares everyone who saw an ad with everyone who did not. The platform did not choose at random, though. It found high-intent customers and customers at both ends of the recency curve, and those people convert at a high rate whether or not they see an ad.</p>
-        <p>Because this is a simulation, we know what these exposed customers would have done without the campaign: converted at <b data-stat="p2.cf">28.5%</b>. The campaign added <b class="T" data-stat="p2.truePP">5.9 points</b> on top of that. The dashboard credits it with <b class="bad" data-stat="p2.naivePP">23.4 points</b>.</p>
-        <p>Dana knows the dashboard number is inflated. The question is by how much, and she needs an answer she can defend.</p>
+        <p>The dashboard compares everyone who saw an ad with everyone who didn't. But the platform didn't pick at random. It went after high-intent customers and customers at both ends of the recency range. Those people buy a lot whether or not they see an ad.</p>
+        <p>This is a simulation, so we know what these customers would have done without the campaign. They would have converted at <b data-stat="p2.cf">28.5%</b>. The campaign added <b class="T" data-stat="p2.truePP">5.9 points</b> to that. The dashboard gives it credit for <b class="bad" data-stat="p2.naivePP">23.4 points</b>.</p>
+        <p>Dana knows the dashboard number is too high. She needs to know by how much, and she needs an answer she can defend.</p>
       </div>
     </div>
   </div>
@@ -1162,32 +1162,32 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
     <div class="center">
       <div class="eyebrow attempt"><span class="tag">Attempt 2</span> Match each exposed customer to an unexposed twin</div>
       <h2>Perfect balance. <span class="bad">On paper.</span></h2>
-      <p class="lede">Propensity score matching is the standard move, and Dana runs it by the book.</p>
+      <p class="lede">Matching on the propensity score is the standard fix, and Dana does it by the book.</p>
     </div>
     <div class="two wide-r">
       <div class="prose">
-        <p>She fits a logistic propensity model on intent and recency, then pairs each of the <span data-stat="p2.n1">1,578</span> exposed customers with the unexposed customer whose score is closest, reusing controls where needed. The balance table comes back immaculate. The standardized difference in intent falls from <b data-stat="p2.smdI0">0.74</b> to <b data-stat="p2.smdI1">0.00</b>, and recency was balanced to begin with.</p>
-        <p>The estimate drops to <b data-stat="p2.psmPP">17.9</b> points, a lift of <b class="bad" data-stat="p2.psmLift">+109%</b>. That is half the dashboard's number, and it comes with a clean balance table. She is tempted to send it.</p>
-        <p>Then she plots the matched pairs, which is the red lines in the animation above. Many of them join a customer who ordered last week to one who has not ordered in a year: same intent, same score, opposite ends of the recency curve. Her model treats recency as a straight line, so a customer far out on either tail looks average to it. The balance table compares mean recency, and the two tails cancel in the mean.</p>
+        <p>She fits a logistic model for the chance of seeing the ads, using intent and recency. Then she pairs each of the <span data-stat="p2.n1">1,578</span> exposed customers with the unexposed customer whose score is closest. Some unexposed customers get used more than once. The balance table looks perfect. The gap in intent drops from <b data-stat="p2.smdI0">0.74</b> to <b data-stat="p2.smdI1">0.00</b>, and recency was already balanced.</p>
+        <p>The estimate falls to <b data-stat="p2.psmPP">17.9</b> points, a lift of <b class="bad" data-stat="p2.psmLift">+109%</b>. That's half the dashboard's number, backed by a clean balance table. She's tempted to send it.</p>
+        <p>Then she plots the matched pairs. They're the red lines in the animation above. Many pairs join someone who ordered last week with someone who hasn't ordered in a year. They have the same intent and the same score, but opposite recency. Her model treats recency as a straight line, so customers at either extreme look average to it. The balance table only checks average recency, and the two extremes cancel out.</p>
       </div>
       <div class="fig">
         <div class="title"><span>Balance before and after matching</span><span>|standardized mean difference|</span></div>
         <canvas id="p2love" style="height:clamp(250px,26vw,290px)" aria-label="Love plot: intent and recency fall to near zero imbalance after matching; recency squared stays far above the 0.1 threshold"></canvas>
         <div class="legend"><span><i class="dot" style="background:transparent;box-shadow:inset 0 0 0 1.5px var(--mu)"></i>before</span><span style="color:var(--cth)"><i class="dot"></i>after, balanced</span><span style="color:var(--cbad)"><i class="dot"></i>after, still imbalanced</span><span><i style="height:9px;background:var(--cth);opacity:.25"></i>|SMD| &lt; 0.1</span></div>
-        <div class="cap">The balance check only covers what the model already contains. Recency² never entered the propensity model, so nothing forced it to balance, and it got slightly worse.</div>
+        <div class="cap">A balance check only covers what you put in the model. Recency² was never in the propensity model, so nothing kept it balanced. It got slightly worse.</div>
       </div>
     </div>
     <div class="two wide-l">
       <div class="fig">
         <div class="title"><span>How often each control was reused</span><span>controls used at least once</span></div>
         <canvas id="p2reuse" style="height:clamp(200px,22vw,240px)" aria-label="Bar chart of how many times each unexposed customer was used as a match"></canvas>
-        <div class="cap"><span data-stat="p2.used">1,039</span> of <span data-stat="p2.n0">3,422</span> controls appear in the matched sample. One of them stands in for <span data-stat="p2.maxK">11</span> different exposed customers.</div>
+        <div class="cap">Only <span data-stat="p2.used">1,039</span> of the <span data-stat="p2.n0">3,422</span> unexposed customers end up in the matched sample. One of them stands in for <span data-stat="p2.maxK">11</span> different exposed customers.</div>
       </div>
       <div class="stack">
-        <div class="prose"><p><b>Matching is weighting.</b> Write the matched estimate out and the pairs disappear:</p></div>
+        <div class="prose"><p><b>Matching is a form of weighting.</b> Write out the matched estimate and the pairs drop away.</p></div>
         <div class="eqbox">
           <div class="eq" style="font-size:clamp(20px,2.6vw,28px)"><i class="hat">θ</i><sub class="r">match</sub><span class="op">=</span><span class="frac"><span>1</span><span><i>n</i><sub>1</sub></span></span><span class="sum">Σ</span><sub><i class="D">D</i>=1</sub><i class="Y">Y</i><sub><i>i</i></sub><span class="op">−</span><span class="sum">Σ</span><sub><i class="D">D</i>=0</sub><span class="frac"><span><i>K</i><sub><i>j</i></sub></span><span><i>n</i><sub>1</sub></span></span><i class="Y">Y</i><sub><i>j</i></sub></div>
-          <div class="cap"><span class="m">K<sub>j</sub></span> counts how many exposed customers borrowed control <span class="m">j</span>. Those counts are a coarse, data-driven estimate of the exposure odds <span class="m D">e/(1 − e)</span>, so whatever is wrong with the propensity model is also wrong with the weights.</div>
+          <div class="cap"><span class="m">K<sub>j</sub></span> counts how many exposed customers were matched to unexposed customer <span class="m">j</span>. Those counts are a rough estimate of the odds of exposure, <span class="m D">e/(1 − e)</span>. So any mistake in the propensity model carries straight into the weights.</div>
         </div>
         <div class="fig hist">
           <div class="title"><span>Matched estimate across 200 campaigns</span><span class="pill no">Biased</span></div>
@@ -1205,7 +1205,7 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
     <div class="center">
       <div class="eyebrow idea"><span class="tag">The idea</span> Use both models, and let each check the other</div>
       <h2>Two ways to be <span class="grad">right.</span></h2>
-      <p class="lede">Every pseudo-experiment rests on a model. Weighting models <b>who got exposed</b>. Regression models <b>who converts</b>. Used alone, each one is a single point of failure.</p>
+      <p class="lede">Every look-back analysis like this needs a model. Weighting models <b>who saw the ads</b>. An outcome model predicts <b>who buys</b>. If you use only one and it's wrong, so is your answer.</p>
     </div>
     <div class="stage ipw-stage">
       <canvas id="ipw" style="height:clamp(380px,42vw,520px)" aria-label="Scatter of customers by intent and recency. Unexposed customers grow in proportion to their odds of exposure until their recency distribution matches the exposed group's U shape."></canvas>
@@ -1214,18 +1214,18 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
         <div class="meter"><div class="k">Exposed, had they not seen ads</div><div class="v D" data-stat="p2.cf">28.5%</div><div class="k">known only in simulation</div></div>
         <div class="meter"><div class="k">Exposed, as observed</div><div class="v D" data-stat="p2.y1">34.3%</div><div class="k">the dashboard's starting point</div></div>
       </div>
-      <p class="mu center" style="font-size:15.5px;max-width:66ch;margin:16px auto 0">Each unexposed customer is scaled by <span class="m D">ê/(1 − ê)</span>, the odds that a customer like them was exposed. As the weights grow, the controls take on the exposed group's U-shape in recency (side panel), and their conversion rate climbs toward what exposed customers would have done without ads.</p>
+      <p class="mu center" style="font-size:15.5px;max-width:66ch;margin:16px auto 0">Each unexposed customer is scaled by <span class="m D">ê/(1 − ê)</span>, the odds that a customer like them saw the ads. As the weights grow, the unexposed group takes on the exposed group's U-shape in recency (side panel). Their conversion rate climbs toward what exposed customers would have done without ads.</p>
     </div>
     <div class="scores">
       <div class="score">
         <div class="eyebrow"><span class="tag" style="color:var(--cd)">Weighting · IPW</span></div>
         <div class="eq"><i class="hat">θ</i><span class="op">=</span><i class="Y">Ȳ</i><sub>exposed</sub><span class="op">−</span><span class="frac"><span><span class="sum">Σ</span><sub><i class="D">D</i>=0</sub> <i class="D hat">w</i><sub><i>j</i></sub><i class="Y">Y</i><sub><i>j</i></sub></span><span><span class="sum">Σ</span><sub><i class="D">D</i>=0</sub> <i class="D hat">w</i><sub><i>j</i></sub></span></span>,&nbsp; <i class="D hat">w</i> = <span class="frac"><span><i class="D hat">e</i></span><span>1 − <i class="D hat">e</i></span></span></div>
-        <p>Reweights unexposed customers until they look like the exposed ones. It is right when <span class="m D">ê</span> is right, and it uses nothing about who converts. Matching belongs to this family.</p>
+        <p>This gives unexposed customers more or less weight until they look like the exposed ones. It works when the propensity <span class="m D">ê</span> is right. It ignores everything about who buys. Matching is a version of this.</p>
       </div>
       <div class="score">
         <div class="eyebrow"><span class="tag" style="color:var(--cy)">Outcome model · regression</span></div>
         <div class="eq"><i class="hat">θ</i><span class="op">=</span><span class="frac"><span>1</span><span><i>n</i><sub>1</sub></span></span><span class="sum">Σ</span><sub><i class="D">D</i>=1</sub>(<i class="Y">Y</i><sub><i>i</i></sub><span class="op">−</span><i class="Y hat">μ</i><sub>0</sub>(<i>X</i><sub><i>i</i></sub>))</div>
-        <p>Learns conversion from unexposed customers and predicts it for the exposed. It is right when <span class="m Y">μ̂₀</span> is right, and it will extrapolate into regions with no controls without warning you.</p>
+        <p>This learns who buys from unexposed customers, then predicts the same for exposed ones. It works when <span class="m Y">μ̂₀</span> is right. Where there are no unexposed look-alikes, it guesses, and it won't warn you.</p>
       </div>
     </div>
     <div class="eqbox" style="margin-top:16px">
@@ -1234,11 +1234,11 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
         <span class="op">+</span>
         <span class="brace D"><span class="frac"><span><span class="sum">Σ</span><sub><i class="D">D</i>=0</sub> <i class="hat">w</i><sub><i>j</i></sub>(<i class="Y">Y</i><sub><i>j</i></sub> − <i class="Y hat">μ</i><sub>0</sub>(<i>X</i><sub><i>j</i></sub>))</span><span><span class="sum">Σ</span><sub><i class="D">D</i>=0</sub> <i class="hat">w</i><sub><i>j</i></sub></span></span><span class="under">its average miss on look-alike controls</span></span> ]
       </div>
-      <div class="cap">Start from the outcome model's guess at the counterfactual. Then measure how wrong that model is on unexposed customers reweighted to look exposed, and add the miss back. If <span class="m Y">μ̂₀</span> is right, its residuals average to zero under any weights. If <span class="m D">ŵ</span> is right, the weighted controls mirror the exposed, so their average residual is exactly the outcome model's error on the exposed.</div>
+      <div class="cap">Start with the outcome model's guess at what exposed customers would have done without ads. Then check how far off that model is on unexposed customers weighted to look exposed, and add the gap back. If <span class="m Y">μ̂₀</span> is right, its errors average to zero whatever the weights. If <span class="m D">ŵ</span> is right, the weighted group matches the exposed group, so its average error equals the outcome model's error on the exposed.</div>
     </div>
     <div class="center" style="margin-top:clamp(56px,8vw,96px)">
       <h3>Four worlds, 200 campaigns each.</h3>
-      <p class="mu" style="margin:10px auto 0;max-width:60ch;font-size:16px">"Right" means the model includes the recency² term. Each dot is one campaign's estimate. Green rows are centered on the truth; red rows are not.</p>
+      <p class="mu" style="margin:10px auto 0;max-width:60ch;font-size:16px">A model is right here if it includes the recency² term. Each dot is one campaign's estimate. Green rows center on the truth. Red rows miss it.</p>
     </div>
     <div class="grid2">
       <div class="fig cell"><div class="title"><span>Propensity <span class="pill no">wrong</span> · Outcome <span class="pill no">wrong</span></span><span>Dana's models</span></div><canvas id="g-tt" aria-label="Both models wrong: all three estimators biased"></canvas></div>
@@ -1247,7 +1247,7 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
       <div class="fig cell"><div class="title"><span>Propensity <span class="pill ok">right</span> · Outcome <span class="pill ok">right</span></span></div><canvas id="g-rr" aria-label="Both right: all three centered, DR in between in spread"></canvas></div>
     </div>
     <div class="prose narrow" style="margin-top:clamp(36px,5vw,56px)">
-      <p>In three of the four worlds the doubly robust estimate lands on the truth. The fourth is Dana's world. Both of her models are linear in recency, the two errors point the same way, and the estimate comes back at <b class="bad" data-stat="p2.drTPP">17.1</b> points. Double robustness gives you two chances to get a model right. It cannot help when both are wrong.</p>
+      <p>In three of the four worlds, the doubly robust estimate lands on the truth. The fourth is Dana's world. Both her models treat recency as a straight line, and both errors push the same way. Her estimate comes back at <b class="bad" data-stat="p2.drTPP">17.1</b> points. Doubly robust gives you two chances to get a model right. If both are wrong, it can't save you.</p>
     </div>
   </div>
 </section>
@@ -1258,21 +1258,21 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
     <div class="center">
       <div class="eyebrow idea"><span class="tag">Why it works</span> Bias as a product</div>
       <h2>Two errors, <span class="grad">multiplied.</span></h2>
-      <p class="lede">Write out the doubly robust estimator's bias, and the propensity error and the outcome error appear as a product.</p>
+      <p class="lede">Work out how far the doubly robust estimate can be off, and you get the propensity error multiplied by the outcome error.</p>
     </div>
     <div class="eqbox" style="margin-top:clamp(36px,5vw,56px)">
       <div class="eq"><span class="r">Bias</span>(<i class="hat T">θ</i><sub class="r">DR</sub>)<span class="op">=</span><span class="frac"><span>E[ (1 − <i class="D">e</i>) · (<i class="D hat">w</i> − <i class="D">w</i>) · (<i class="Y hat">μ</i><sub>0</sub> − <i class="Y">μ</i><sub>0</sub>) ]</span><span>P(<i class="D">D</i> = 1)</span></span></div>
-      <div class="cap">With <span class="m D">w = e/(1 − e)</span>. If either factor is zero, the product is zero. The formula is for the unnormalized estimator; the weight-normalized version used on this page has the same zero set.</div>
+      <div class="cap">With <span class="m D">w = e/(1 − e)</span>. If either error is zero, the product is zero. The formula is for the version with raw weights. This page rescales the weights to sum to one, and that version is zero in the same places.</div>
     </div>
     <div class="heat3">
       <div class="fig"><div class="title"><span>Weighting (IPW)</span><span class="mono" id="hvI">…</span></div><canvas id="hm-ipw" class="hm" aria-label="Bias of IPW as a function of propensity and outcome errors: vertical stripes"></canvas></div>
       <div class="fig"><div class="title"><span>Outcome model</span><span class="mono" id="hvO">…</span></div><canvas id="hm-or" class="hm" aria-label="Bias of the outcome model: horizontal stripes"></canvas></div>
       <div class="fig"><div class="title"><span>Doubly robust</span><span class="mono" id="hvD">…</span></div><canvas id="hm-dr" class="hm" aria-label="Bias of the doubly robust estimator: zero along both axes"></canvas></div>
     </div>
-    <div class="legend center-legend"><span style="color:var(--cbad)"><i style="height:9px"></i>overstates lift</span><span style="color:var(--cd)"><i style="height:9px"></i>understates lift</span><span style="color:var(--cth)"><i class="dot"></i>bias under 0.4 pp</span><span>Horizontal axis: share of the recency² term the propensity model misses. Vertical: share the outcome model misses. 0 = correct, 1 = term dropped. Tap or drag on any map.</span></div>
+    <div class="legend center-legend"><span style="color:var(--cbad)"><i style="height:9px"></i>overstates lift</span><span style="color:var(--cd)"><i style="height:9px"></i>understates lift</span><span style="color:var(--cth)"><i class="dot"></i>bias under 0.4 pp</span><span>Across: how much of the recency² term the propensity model misses. Up: how much the outcome model misses. 0 means correct, 1 means the term is left out. Tap or drag on any map.</span></div>
     <div class="prose narrow" style="margin-top:clamp(32px,4vw,48px)">
-      <p>The weighting map has vertical stripes because its bias depends only on the propensity model. The outcome map has horizontal stripes. The doubly robust map is clear along both axes, and near the origin it stays small in every direction, since there it grows with the product of the two errors.</p>
-      <p>This is the orthogonality from Part II in a binary-treatment setting. The doubly robust score for the ATT is Neyman orthogonal, so the nuisance errors enter only through their product. Two flexible models that each converge at <span class="m">n<sup>−1/4</sup></span> are enough for a <span class="m">√n</span>-consistent estimate with an honest interval, provided they are cross-fitted.</p>
+      <p>The weighting map has vertical stripes because its error depends only on the propensity model. The outcome model map has horizontal stripes for the same reason. The doubly robust map is clear along both axes. Near the corner where both models are right, it stays small in every direction, because it grows with the product of the two errors.</p>
+      <p>This is the same orthogonality as in Part II, now with a yes-or-no treatment. The doubly robust formula for the effect on exposed customers (the ATT) is Neyman orthogonal. So the two models' errors only matter through their product. Two flexible models that each improve at a rate of <span class="m">n<sup>−1/4</sup></span> are enough. Cross-fit them, and you get a <span class="m">√n</span>-accurate estimate with an interval you can trust.</p>
     </div>
   </div>
 </section>
@@ -1292,15 +1292,15 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
       </div>
       <div class="stack">
         <div class="prose">
-          <p>Correct weights can still cause trouble. Some exposed customers had a better than 95% chance of seeing the campaign, because the platform almost never skipped people like them. Their unexposed look-alikes are rare, and each one gets a weight of 19 or more.</p>
-          <p>In this file, <b data-stat="p2.hi1">81</b> exposed customers sit above <span class="m">ê = 0.9</span>, against <b data-stat="p2.hi0">4</b> controls.</p>
+          <p>Even correct weights can cause trouble. Some exposed customers had a better than 95% chance of seeing the campaign. The platform almost never skipped people like them. So their unexposed look-alikes are rare, and each one gets a weight of 19 or more.</p>
+          <p>In this file, <b data-stat="p2.hi1">81</b> exposed customers have a propensity above <span class="m">ê = 0.9</span>. Only <b data-stat="p2.hi0">4</b> unexposed customers do.</p>
         </div>
         <div class="meters">
           <div class="meter"><div class="k">Effective number of controls</div><div class="v"><span data-stat="p2.ess">540</span><span class="mu" style="font-size:16px;font-weight:500"> of <span data-stat="p2.n0">3,422</span></span></div></div>
           <div class="meter"><div class="k">Largest single control's share of weight</div><div class="v B" data-stat="p2.maxShare">2.8%</div></div>
         </div>
         <div class="prose">
-          <p>Report the overlap plot alongside every lift estimate. Trimming customers above a propensity threshold, or matching within a caliper, buys stability by changing the question to "the lift among exposed customers who had comparable controls", so say so when you do it. The doubly robust estimator tames extreme weights somewhat, since they only multiply residuals, but no estimator can supply comparisons the data never contained.</p>
+          <p>Show this overlap plot with every lift estimate. You can drop customers above a propensity cutoff, or only accept close matches. Both steady the estimate, but they change the question. You're now measuring lift only among exposed customers who had real look-alikes, so say that when you report it. The doubly robust estimator softens extreme weights a little, because the weights only multiply model errors. No method can create comparisons the data never had.</p>
         </div>
       </div>
     </div>
@@ -1313,13 +1313,13 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
     <div class="center">
       <div class="eyebrow fix"><span class="tag">The fix</span> Learn both models, cross-fit both</div>
       <h2>Stop guessing the <span class="grad">targeting rule.</span></h2>
-      <p class="lede">Dana cannot know the platform's rule, so she stops writing a formula for it. She swaps both logistic models for flexible learners and cross-fits them exactly as in Part II.</p>
+      <p class="lede">Dana can't see the platform's rule, so she stops trying to write it down. She swaps both logistic models for flexible ones and cross-fits them, just as in Part II.</p>
     </div>
     <div class="two wide-r">
       <div class="prose">
-        <p>Each model becomes a penalized additive logistic regression with nine smooth basis functions per feature. A gradient-boosted classifier would do the same job. Neither model is told about the U in recency, and both find it from the data. Every customer's <span class="m D">ê</span> and <span class="m Y">μ̂₀</span> come from models trained on the other four folds, so no customer's own conversion leaks into their residual.</p>
-        <p>She reruns the 200-campaign check. The estimates now center on the truth, and the 95% intervals built from the influence function cover it <b data-stat="p2.flexCov">95%</b> of the time.</p>
-        <p>The earlier matching work still has a use. Keep the pairs, and subtract each pair's predicted difference <span class="m Y">μ̂₀(Xᵢ) − μ̂₀(Xⱼ)</span>. That is Abadie and Imbens's bias-corrected matching, a doubly robust estimator with matching counts as the weights. With the flexible models it gives <b data-stat="p2.bcm">6.8</b> points on this campaign.</p>
+        <p>Each model is now a flexible logistic regression that can bend with each feature, using nine smooth curves per feature. A gradient-boosted classifier would work just as well. Nobody tells either model about the U-shape in recency. Both find it in the data. Each customer's <span class="m D">ê</span> and <span class="m Y">μ̂₀</span> come from models trained on the other four folds. That way, no customer's own conversion leaks into their own residual.</p>
+        <p>She reruns the check on simulated campaigns. This time the estimates land on the truth. The 95% intervals contain the true effect <b data-stat="p2.flexCov">95%</b> of the time, just as they should.</p>
+        <p>Her matching work isn't wasted. She can keep the pairs and subtract each pair's predicted difference, <span class="m Y">μ̂₀(Xᵢ) − μ̂₀(Xⱼ)</span>. This is Abadie and Imbens's bias-corrected matching. It's also doubly robust, with the match counts acting as weights. With the flexible models, it gives <b data-stat="p2.bcm">6.8</b> points on this campaign.</p>
       </div>
       <div class="fig hist">
         <div class="title"><span>Doubly robust estimate across 150 campaigns</span><span class="pill ok">Centered</span></div>
@@ -1333,9 +1333,10 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
     <div class="payoff center narrow">
       <div class="eyebrow fix"><span class="tag">Dana's number</span></div>
       <div class="big-num grad" style="margin-top:18px"><span data-stat="p2.flexLift">+26%</span></div>
-      <p class="lede" style="margin-top:18px">95% interval <b data-stat="p2.flexCI">+9% to +42%</b>. That is <b data-stat="p2.flexPP">7.0</b> extra conversions per hundred exposed customers.</p>
+      <p class="lede" style="margin-top:18px">95% interval <b data-stat="p2.flexCI">+9% to +42%</b>. That's <b data-stat="p2.flexPP">7.0</b> extra conversions for every 100 exposed customers.</p>
       <div class="prose" style="margin:28px auto 0;text-align:left">
-        <p>The interval is wide, because 1,578 exposed customers is not much data for a ratio. It still sits far below the dashboard's <span class="bad" data-stat="p2.naiveLift">+213%</span>, and far below the <span class="bad" data-stat="p2.psmLift">+109%</span> the matched analysis nearly reported. Dana takes the doubly robust number to the CMO with the overlap plot attached. If the platform targeted on nothing she cannot see, the campaign works, at a fraction of the size the dashboard claimed. That "if" is Part I's assumption, and the last section measures how much it matters.</p>
+        <p>The interval is wide. A ratio needs a lot of data, and 1,578 exposed customers isn't much. Even so, the whole interval sits far below the dashboard's <span class="bad" data-stat="p2.naiveLift">+213%</span>. It also sits well below the <span class="bad" data-stat="p2.psmLift">+109%</span> that the matching analysis almost reported.</p>
+        <p>Dana takes this number to the CMO, with the overlap plot attached. The campaign works, at a fraction of what the dashboard claimed. That holds as long as the platform didn't target on something Dana can't see. That condition is Part I's assumption, and the last section tests how much it matters.</p>
       </div>
     </div>
   </div>
@@ -1347,7 +1348,7 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
     <div class="center">
       <div class="eyebrow idea"><span class="tag">Next flight</span> The DR-learner</div>
       <h2>Where the lift <span class="grad">lives.</span></h2>
-      <p class="lede">The next question is always who to target next time. The same two-model logic answers it.</p>
+      <p class="lede">The CMO's next question is always the same: who should we target next time? The same two models can answer it.</p>
     </div>
     <div class="two wide-l">
       <div class="fig">
@@ -1356,11 +1357,11 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
         <div class="legend"><span><i class="dash" style="color:var(--fg)"></i>true effect</span><span style="color:var(--cth)"><i></i>DR-learner, mean of 150 campaigns</span><span style="color:var(--cth)"><i style="height:9px;opacity:.25"></i>80% of campaigns</span><span style="color:var(--cbad)"><i></i>dashboard segment cut</span></div>
       </div>
       <div class="stack">
-        <div class="prose"><p>Build a pseudo-outcome for every customer, then regress it on whatever you want to segment by. Kennedy's DR-learner uses the doubly robust score itself:</p></div>
+        <div class="prose"><p>Give every customer a score that estimates their own lift. Then average those scores within each segment you care about. Kennedy's DR-learner builds that score from the same two models:</p></div>
         <div class="eqbox"><div class="eq" style="font-size:clamp(18px,2.1vw,23px)"><i class="hat">φ</i><span class="op">=</span><i class="Y hat">μ</i><sub>1</sub><span class="op">−</span><i class="Y hat">μ</i><sub>0</sub><span class="op">+</span><span class="frac"><span><i class="D">D</i>(<i class="Y">Y</i> − <i class="Y hat">μ</i><sub>1</sub>)</span><span><i class="D hat">e</i></span></span><span class="op">−</span><span class="frac"><span>(1 − <i class="D">D</i>)(<i class="Y">Y</i> − <i class="Y hat">μ</i><sub>0</sub>)</span><span>1 − <i class="D hat">e</i></span></span></div></div>
         <div class="prose">
-          <p>Under the same no-hidden-signal assumption, its expected value given <span class="m">X</span> is the true effect whenever either the propensity or the outcome models are right. Smoothing it against intent gives the curve on the left.</p>
-          <p>The dashboard's segment cut, exposed minus unexposed within each intent band, says the campaign adds 14 to 23 points for everyone. The DR-learner says lift is close to zero for low-intent customers and climbs to about 14 points at the top. That curve is the brief for the next flight.</p>
+          <p>Any one customer's score is noisy. Averaged over similar customers, it gives the true effect, as long as either the propensity model or the outcome models are right. This still relies on the platform not targeting on anything hidden. Smoothing the scores across intent gives the curve on the left.</p>
+          <p>The dashboard compares exposed and unexposed customers within each intent band. By that view, the campaign adds 14 to 23 points for everyone. The DR-learner tells a different story. Lift is close to zero for low-intent customers and climbs to about 14 points for the highest. That curve tells the team who to target in the next flight.</p>
         </div>
       </div>
     </div>
@@ -1375,12 +1376,12 @@ se = np.sqrt(np.mean(psi**<span class="n1">2</span>) / np.mean(d_res**<span clas
       <h2>The recipe for ad lift.</h2>
     </div>
     <ol class="recipe even">
-      <li><h3>Define the trial you wish you had run.</h3><div class="body">Who was eligible, when exposure is measured, what counts as a conversion and over what window. Every feature in <span class="m">X</span> must be measured before exposure.</div></li>
-      <li><h3>Cross-fit two models.</h3><div class="body">Propensity <span class="m D">ê(X)</span> trained on everyone. Outcome <span class="m Y">μ̂₀(X)</span> trained on unexposed customers only, then predicted for all. Use flexible learners and K folds.</div></li>
-      <li><h3>Look at overlap before looking at lift.</h3><div class="body">Plot <span class="m D">ê</span> by group. Decide on any trimming or caliper now, and write down how it changes the population you are describing.</div></li>
+      <li><h3>Define the trial you wish you had run.</h3><div class="body">Write down who was eligible, when you measure exposure, and what counts as a conversion over what window. Measure every feature in <span class="m">X</span> before anyone saw an ad.</div></li>
+      <li><h3>Cross-fit two models.</h3><div class="body">Train the propensity model <span class="m D">ê(X)</span>, the chance each customer was exposed, on everyone. Train the outcome model <span class="m Y">μ̂₀(X)</span> on unexposed customers only, then predict for everyone. Use flexible models and split the data into K folds.</div></li>
+      <li><h3>Look at overlap before looking at lift.</h3><div class="body">Plot <span class="m D">ê</span> for each group. If you plan to drop customers with no good comparison, decide now. Then write down which customers your result still describes.</div></li>
       <li><h3>Compute the doubly robust ATT.</h3><div class="body"><div class="eq"><i class="hat T">θ</i> = mean<sub><i class="D">D</i>=1</sub>(<i class="Y">Y</i> − <i class="Y hat">μ</i><sub>0</sub>) − Σ<sub><i class="D">D</i>=0</sub><i class="D hat">w</i>(<i class="Y">Y</i> − <i class="Y hat">μ</i><sub>0</sub>) / Σ<sub><i class="D">D</i>=0</sub><i class="D hat">w</i></div></div></li>
-      <li><h3>Get intervals from the influence function.</h3><div class="body">The ATT's standard error comes from the per-customer score. Relative lift divides by the estimated counterfactual rate, so use the delta method on both pieces.</div></li>
-      <li><h3>Try to break it.</h3><div class="body">Run a placebo: conversions in the weeks before the campaign should show zero lift. Check weighted balance on flexible features such as squares and splines. Run a sensitivity analysis for a confounder you could not measure.</div></li>
+      <li><h3>Get intervals from the influence function.</h3><div class="body">Each customer's score gives you the standard error. Relative lift divides by an estimated rate, so use the delta method to carry the uncertainty from both parts.</div></li>
+      <li><h3>Try to break it.</h3><div class="body">Run a placebo test on conversions from the weeks before the campaign. It should show zero lift. Check that the weighted groups match on squares and curves of each feature, too. Then run a sensitivity analysis for a confounder you couldn't measure.</div></li>
     </ol>
 <pre class="code"><span class="k1">import</span> numpy <span class="k1">as</span> np
 <span class="k1">from</span> sklearn.model_selection <span class="k1">import</span> KFold
@@ -1407,9 +1408,9 @@ phi_l = phi / base - att * phi_c / base**<span class="n1">2</span>             <
 se, lift_se = phi.std() / np.sqrt(n), phi_l.std() / np.sqrt(n)
 <span class="f1">print</span>(<span class="s1">f"ATT {att:.3f} ± {1.96*se:.3f}   lift {att/base:+.0%} ± {1.96*lift_se:.0%}"</span>)</pre>
     <div class="notes">
-      <div><h3>Off the shelf</h3><p>DoubleML's <span class="mono">DoubleMLIRM(score="ATTE")</span> implements this estimator with cross-fitting and repeated splits. EconML's <span class="mono">DRLearner</span> fits the heterogeneity curve.</p></div>
-      <div><h3>ATT or ATE</h3><p>The ATT needs only <span class="m Y">μ₀</span> and overlap on the exposed side, which suits "what did the campaign do". The ATE asks what would happen if everyone were exposed, and it needs both outcome models and overlap everywhere.</p></div>
-      <div><h3>What it cannot fix</h3><p>If the platform targeted on something you do not have, such as in-app engagement or lookalike scores, both models miss it together. A placebo outcome is the cheapest warning, and a real holdout in the next flight is the cure.</p></div>
+      <div><h3>Off the shelf</h3><p>DoubleML's <span class="mono">DoubleMLIRM(score="ATTE")</span> runs this estimator with cross-fitting and repeated splits. EconML's <span class="mono">DRLearner</span> fits the lift-by-segment curve.</p></div>
+      <div><h3>ATT or ATE</h3><p>The ATT asks what the campaign did for the people who saw it. It needs only <span class="m Y">μ₀</span> and comparable unexposed customers for each exposed one. The ATE asks what would happen if everyone saw the ads. It needs both outcome models and comparable customers on both sides.</p></div>
+      <div><h3>What it cannot fix</h3><p>The platform may target on data you don't have, like in-app engagement or lookalike scores. If so, both models miss it together. A placebo test is the cheapest warning sign. A real holdout group in the next flight fixes the problem.</p></div>
     </div>
   </div>
 </section>
@@ -1420,7 +1421,7 @@ se, lift_se = phi.std() / np.sqrt(n), phi_l.std() / np.sqrt(n)
     <div class="center">
       <div class="eyebrow">Playground</div>
       <h2>Pick your models. <span class="grad">Run 100 campaigns.</span></h2>
-      <p class="lede">Choose how each model treats recency and how sharply the platform targets, and see which estimators hold up.</p>
+      <p class="lede">Choose how each model handles recency and how sharply the platform targets. Then see which estimates hold up.</p>
     </div>
     <div class="pg">
       <div class="panel">
@@ -1428,8 +1429,8 @@ se, lift_se = phi.std() / np.sqrt(n), phi_l.std() / np.sqrt(n)
           <div class="seg-tabs sm" role="group" aria-labelledby="lblE" id="segE"><button type="button" data-v="team" aria-pressed="true">Linear</button><button type="button" data-v="right" aria-pressed="false">+ recency²</button><button type="button" data-v="gam" aria-pressed="false">Flexible</button></div></div>
         <div class="knob"><div class="row"><label id="lblM">Outcome model</label></div>
           <div class="seg-tabs sm" role="group" aria-labelledby="lblM" id="segM"><button type="button" data-v="team" aria-pressed="true">Linear</button><button type="button" data-v="right" aria-pressed="false">+ recency²</button><button type="button" data-v="gam" aria-pressed="false">Flexible</button></div>
-          <p>Flexible models are cross-fitted on five folds and take a few seconds longer.</p></div>
-        <div class="knob"><div class="row"><label for="k2S">Targeting sharpness</label><output id="o2S">1.0×</output></div><input id="k2S" type="range" min="0.5" max="1.6" step="0.1" value="1"><p>Scales the platform's rule. Sharper targeting means thinner overlap and wilder weights.</p></div>
+          <p>Flexible models use five-fold cross-fitting, so they take a few seconds longer.</p></div>
+        <div class="knob"><div class="row"><label for="k2S">Targeting sharpness</label><output id="o2S">1.0×</output></div><input id="k2S" type="range" min="0.5" max="1.6" step="0.1" value="1"><p>Changes how strongly the platform targets. Sharper targeting leaves fewer comparable customers and makes the weights swing more.</p></div>
         <div class="knob"><div class="row"><label for="k2N">Customers per campaign</label><output id="o2N">5,000</output></div><input id="k2N" type="range" min="0" max="2" step="1" value="1"></div>
         <div class="prog" aria-hidden="true"><i id="pg2Bar"></i></div>
         <div class="row" style="display:flex;gap:10px;align-items:center;justify-content:space-between"><button class="btn" id="pg2Run" type="button">Run 100 campaigns</button><span class="mono mu" style="font-size:13px" id="pg2Truth">truth 6.8 pp</span></div>
@@ -1442,9 +1443,9 @@ se, lift_se = phi.std() / np.sqrt(n), phi_l.std() / np.sqrt(n)
           <div class="fig"><div class="title"><span>Doubly robust</span><span class="pill" id="q3p">·</span></div><canvas id="q3"></canvas><div class="stat-row"><span>mean <b id="q3m">…</b></span><span>sd <b id="q3s">…</b></span></div></div>
         </div>
         <div class="hints">
-          <div class="hint"><b>Fix only the propensity model.</b> Matching, weighting and doubly robust recover. The outcome model stays where it was.</div>
-          <div class="hint"><b>Fix only the outcome model.</b> The outcome model and doubly robust recover, while matching and weighting stay biased.</div>
-          <div class="hint"><b>Flexible both, then sharpen targeting.</b> The estimate stays centered and gets wider. That is overlap running out.</div>
+          <div class="hint"><b>Fix only the propensity model.</b> Matching, weighting and the doubly robust estimate all recover. The outcome model alone stays off.</div>
+          <div class="hint"><b>Fix only the outcome model.</b> The outcome model and the doubly robust estimate recover. Matching and weighting stay biased.</div>
+          <div class="hint"><b>Make both flexible, then sharpen targeting.</b> The estimate stays on target but gets wider. That's what running out of comparable customers looks like.</div>
         </div>
       </div>
     </div>
@@ -1458,7 +1459,7 @@ se, lift_se = phi.std() / np.sqrt(n), phi_l.std() / np.sqrt(n)
     <div class="center">
       <div class="eyebrow fix"><span class="tag">Back to Part I</span> Sensitivity analysis</div>
       <h2>Say how wrong it would <span class="grad">have to be.</span></h2>
-      <p class="lede">The identifying assumption cannot be proven. So once the estimate is in hand, report how badly the assumption would have to fail before the decision changes.</p>
+      <p class="lede">No one can prove the key assumption. So once you have the estimate, show how far that assumption would have to break before the decision changes.</p>
     </div>
     <div class="two wide-l">
       <div class="fig">
@@ -1467,18 +1468,18 @@ se, lift_se = phi.std() / np.sqrt(n), phi_l.std() / np.sqrt(n)
         <div class="legend"><span style="color:var(--cth)"><i></i>effect = ψ̂ − δ</span><span style="color:var(--cth)"><i style="height:9px;opacity:.25"></i>95% interval</span><span style="color:var(--cy)"><i class="dash"></i>head start created by a measured feature</span></div>
       </div>
       <div class="prose">
-        <p>Call <span class="m">δ</span> the hidden head start: how much more likely exposed customers would have been to convert without ads than unexposed customers with the same intent and recency. "Nothing hidden" means <span class="m">δ = 0</span>. For any other value, the effect is the estimate minus <span class="m">δ</span>.</p>
-        <p>The interval reaches zero at <b data-stat="p3.tipCI">3.3</b> points and the point estimate at <b data-stat="p3.tip">7.0</b>. Whether those are large depends on what you compare them with, so compare them with signals Dana did measure. Leaving intent out of both models moves the estimate by <b data-stat="p3.bI">8.0</b> points, and leaving recency out moves it by <b data-stat="p3.bR">11.3</b>.</p>
-        <p>So the sentence in the deck reads: <i>the campaign lifted conversions by about <span data-stat="p2.flexLift">+26%</span>, and the lift stays distinguishable from zero unless the platform's unseen targeting created more than about <span data-stat="p3.frac">40%</span> of the head start that intent did.</i> The CFO may reject that premise, but he can see exactly what it is.</p>
-        <p class="mu" style="font-size:16px">This dial is deliberately simple: a constant gap on the probability scale. Rosenbaum bounds for matched designs, Cinelli and Hazlett's partial-R² benchmarks, and the omitted-variable bounds for debiased ML of Chernozhukov and coauthors all follow the same pattern. Name the assumption, put a dial on it, and benchmark the dial against what you measured. The benchmark is a judgment as well, since nothing guarantees a hidden signal is comparable to a measured one.</p>
+        <p>Call <span class="m">δ</span> the hidden head start. It measures how much more likely exposed customers were to buy anyway, compared with unexposed customers who share their intent and recency. If nothing is hidden, <span class="m">δ = 0</span>. For any other value, subtract <span class="m">δ</span> from the estimate to get the effect.</p>
+        <p>The interval touches zero at a head start of <b data-stat="p3.tipCI">3.3</b> points. The estimate itself hits zero at <b data-stat="p3.tip">7.0</b>. To judge whether those numbers are big, compare them with signals Dana did measure. Dropping intent from both models moves the estimate by <b data-stat="p3.bI">8.0</b> points. Dropping recency moves it by <b data-stat="p3.bR">11.3</b>.</p>
+        <p>That gives Dana one sentence for the deck. <i>The campaign lifted conversions by about <span data-stat="p2.flexLift">+26%</span>. It stays clear of zero unless the platform's hidden targeting created more than about <span data-stat="p3.frac">40%</span> of the head start that intent did.</i> The CFO may doubt that premise, but now he can see it and argue with it.</p>
+        <p class="mu" style="font-size:16px">We kept this dial simple on purpose. It assumes the same gap in conversion rate for every customer. More formal tools work the same way. Examples are Rosenbaum bounds for matched designs, Cinelli and Hazlett's partial-R² benchmarks, and the omitted-variable bounds for debiased ML by Chernozhukov and coauthors. Each one names the assumption, turns it into a dial, and compares the dial with what you measured. That comparison is still a judgment call. Nothing guarantees a hidden signal behaves like a measured one.</p>
       </div>
     </div>
     <div class="buy">
-      <div><h3 class="T">What DML and doubly robust estimation give you</h3><ul><li>Freedom from guessing functional forms for the nuisance models</li><li>Valid √n intervals with machine-learned nuisances</li><li>Protection when one of two models is wrong</li><li>A principled way to use flexible learners without overfitting bias</li></ul></div>
-      <div><h3 class="B">What they cannot give you</h3><ul><li>Identification</li><li>Protection from a confounder that is not in <span class="m">X</span></li><li>Protection from post-exposure features or other bad controls</li><li>A guarantee that the effect transfers to the next flight, audience or platform</li></ul></div>
+      <div><h3 class="T">What DML and doubly robust estimation give you</h3><ul><li>No need to guess the shape of the helper models</li><li>Honest confidence intervals, even when machine learning fits those models</li><li>Protection when one of the two models is wrong</li><li>A safe way to use flexible learners without overfitting bias</li></ul></div>
+      <div><h3 class="B">What they cannot give you</h3><ul><li>Identification, the assumptions that make the answer causal</li><li>Protection from a confounder that is missing from <span class="m">X</span></li><li>Protection from features measured after exposure, or other bad controls</li><li>Any promise that the effect carries over to the next flight, audience or platform</li></ul></div>
     </div>
     <div class="prose narrow" style="margin-top:clamp(40px,5vw,64px)">
-      <p>When identification matters, the remedy is design. A randomized holdout or ghost-ad control in the next flight, a geo experiment, or a natural experiment such as a budget cap or delivery outage each makes the first arrow true by construction. Then the estimators on this page do what they are good at: making the most of the data you have.</p>
+      <p>When identification matters, fix it with design. Run a randomized holdout or a ghost-ad control in the next flight. Run a geo experiment. Or use a natural experiment, such as a budget cap or a delivery outage. Each one makes the first arrow true by design. The methods on this page then do their real job, which is getting the most out of the data you have.</p>
     </div>
   </div>
 </section>
@@ -1502,8 +1503,8 @@ se, lift_se = phi.std() / np.sqrt(n), phi_l.std() / np.sqrt(n)
       <li>Chernozhukov, V., Cinelli, C., Newey, W., Sharma, A. &amp; Syrgkanis, V. (2022). Long story short: omitted variable bias in causal machine learning. <a href="https://arxiv.org/abs/2112.13398">arXiv:2112.13398</a></li>
       <li>Kennedy, E. H. (2023). Towards optimal doubly robust estimation of heterogeneous causal effects. <i>Electronic Journal of Statistics</i>, 17(2), 3008–3049. <a href="https://arxiv.org/abs/2004.14497">arXiv:2004.14497</a></li>
     </ol>
-    <p class="fine">Simulation: demand <span class="m">X</span> ~ Uniform(−π, π); <span class="m">v</span> ~ N(0, 0.8²); <span class="m">ε</span> ~ N(0, 1); 500 weeks per dataset; 300 datasets with fixed seeds. Smooth learner: ridge regression on 13 Gaussian bumps over demand, λ = 10. Flexible learner: 2-nearest-neighbour average. Five folds, residuals pooled (DML2). Intervals use the sandwich variance of each method's own score. Dana and her retailer are illustrative; every number is computed live by this page.</p>
-    <p class="fine" style="border-top:0;padding-top:8px">Part III simulation: intent and recency ~ N(0, 1) independently; exposure and conversion drawn from the logistic models shown in Part III; 5,000 customers per campaign. "Linear" models are logistic regressions on intent and recency; "+ recency²" adds the squared term; "flexible" models are additive logistic regressions on nine Gaussian basis functions per feature with a ridge penalty, cross-fitted on five folds. Matching is 1:1 nearest neighbour on the logit of the estimated propensity, with replacement. Estimated propensities are clipped to [0.005, 0.995]. Weighting and doubly robust estimators normalize weights within the unexposed group. Intervals for weighting and doubly robust estimates use their influence functions; matching intervals use the Abadie–Imbens conditional variance with the outcome model's variance; outcome-model intervals ignore estimation of μ̂₀ and run narrow. Truths are computed from 200,000 simulated customers. The 2×2 grid uses 200 campaigns per cell, the flexible estimator 150, and the playground 100, all with fixed seeds.</p>
+    <p class="fine">Simulation: demand <span class="m">X</span> ~ Uniform(−π, π); <span class="m">v</span> ~ N(0, 0.8²); <span class="m">ε</span> ~ N(0, 1); 500 weeks per dataset; 300 datasets with fixed seeds. Smooth learner: ridge regression on 13 Gaussian bumps over demand, λ = 10. Flexible learner: 2-nearest-neighbour average. Five folds, residuals pooled (DML2). Each method's intervals use the sandwich variance of its own score. Dana and her retailer are made up. This page computes every number live.</p>
+    <p class="fine" style="border-top:0;padding-top:8px">Part III simulation: intent and recency ~ N(0, 1) independently; exposure and conversion drawn from the logistic models shown in Part III; 5,000 customers per campaign. "Linear" models are logistic regressions on intent and recency; "+ recency²" adds the squared term; "flexible" models are additive logistic regressions on nine Gaussian basis functions per feature with a ridge penalty, cross-fitted on five folds. Matching pairs each exposed customer with its nearest unexposed neighbour on the logit of the estimated propensity, with replacement. We clip estimated propensities to [0.005, 0.995]. The weighting and doubly robust estimators normalize weights within the unexposed group. Their intervals come from influence functions. Matching intervals use the Abadie–Imbens conditional variance with the outcome model's variance. Outcome-model intervals ignore the uncertainty in μ̂₀, so they run too narrow. We compute the true values from 200,000 simulated customers. The 2×2 grid uses 200 campaigns per cell, the flexible estimator 150, and the playground 100, all with fixed seeds.</p>
   </div>
 </footer>
 
@@ -1995,7 +1996,7 @@ function drawHero() {
   c.globalAlpha = p; c.fillText('residual spend D̃  →', box.r, h - 6); c.globalAlpha = 1;
   const num = $('#heroNum'), lab = $('#heroLab'), sub = $('#heroSub');
   num.textContent = f2(lerp(olsRaw.b, olsRes.b, p)); num.style.color = p > .5 ? 'var(--cth)' : 'var(--cbad)';
-  const after = p > .5; if (lab.dataset.s !== String(after)) { lab.dataset.s = after; lab.textContent = after ? 'Residual on residual · fitted slope' : 'Raw data · fitted slope'; sub.textContent = after ? 'Demand removed from both spend and revenue.' : 'Spend and revenue as recorded.'; }
+  const after = p > .5; if (lab.dataset.s !== String(after)) { lab.dataset.s = after; lab.textContent = after ? 'Residual on residual · fitted slope' : 'Raw data · fitted slope'; sub.textContent = after ? 'Demand taken out of both spend and revenue.' : 'Spend and revenue, as recorded.'; }
 }
 if (!RM) {
   let t0 = null;
@@ -2195,9 +2196,9 @@ if (!RM) { let t0 = null; const sweep = now => { if (rTouched) { live.delete(swe
 /* ================= OVERFIT ANATOMY ================= */
 // percentages of bar height: ℓ = 60, θv = 20 (60–80), ε = 12 (80–92)
 const MODES = [
-  { mark: 60, eff: 20, noise: 12, keep: '100%', ok: true, txt: 'of the green effect survives in the residual. The smooth model only knows what demand predicts.' },
-  { mark: 76, eff: 10, noise: 6, keep: '50%', ok: false, txt: 'survives. The model saw this week, gave its own revenue half the weight, and absorbed half the effect along with half the noise.' },
-  { mark: 57.5, eff: 20, noise: 14.5, keep: '100%', ok: true, txt: 'survives. Out of fold, the same model can only lean on other weeks, so its error is unrelated to this week\'s spend.' },
+  { mark: 60, eff: 20, noise: 12, keep: '100%', ok: true, txt: 'of the green effect is still in the residual. The smooth model only knows what demand predicts.' },
+  { mark: 76, eff: 10, noise: 6, keep: '50%', ok: false, txt: 'is left. The model trained on this week and gave its revenue half the weight. That swallowed half the effect and half the noise.' },
+  { mark: 57.5, eff: 20, noise: 14.5, keep: '100%', ok: true, txt: "is left. Trained on other weeks, the same model can't see this one, so its mistakes have nothing to do with this week's spend." },
 ];
 function setMode(i) {
   const M = MODES[i];
@@ -2347,9 +2348,9 @@ function drawH2() {
   if (lab.dataset.p !== String(phase)) {
     lab.dataset.p = phase; const num = $('#h2Num'), sub = $('#h2Sub');
     const v = [Qs.y1 / Qs.y0 - 1, relL(QEt.psm.th), QEg.dr.lift][phase];
-    lab.textContent = ['Dashboard · exposed vs unexposed', 'Matched on Dana\'s score', 'Doubly robust · flexible, cross-fit'][phase];
+    lab.textContent = ['Dashboard · exposed vs unexposed', "Matched on Dana's score", 'Doubly robust · flexible, cross-fit'][phase];
     num.textContent = lp(v); num.style.color = phase === 2 ? 'var(--cth)' : 'var(--cbad)';
-    sub.textContent = ['Lift in conversion rate, as the platform reports it.', 'Same intent, mismatched recency.', 'True lift ' + lp(TR.lift) + '.'][phase];
+    sub.textContent = ['Lift in conversion rate, as the platform reports it.', 'Pairs match on intent but not on recency.', 'True lift ' + lp(TR.lift) + '.'][phase];
   }
 }
 PAINT2.push(drawH2);
@@ -2684,12 +2685,12 @@ setDelta(0);
 /* ---------- hero: one Markov equivalence class, six causal stories ---------- */
 const mecCv = $('#mec');
 const WORLDS = [
-  { o: [1, 1, 1], name: 'Demand drives both', desc: 'Demand sets the budget and moves revenue. Adjusting for demand isolates the effect, which is what Part II does.', eff: SE.ortho.th },
-  { o: [-1, 1, 1], name: 'The ads create demand', desc: 'Spend raises demand, and demand raises revenue. Demand is a mediator, so adjusting for it would hide part of the effect.', eff: olsRaw.b },
-  { o: [1, 1, -1], name: 'Revenue sets the budget', desc: 'Budgets are set from demand and from revenue. Spend itself changes nothing.', eff: 0 },
-  { o: [1, -1, -1], name: 'Revenue drives everything', desc: 'Revenue moves the demand signal, and both of them set the budget. Spend changes nothing.', eff: 0 },
-  { o: [-1, -1, 1], name: 'Demand is a by-product', desc: 'The demand index is computed from spend and revenue. It is a collider, and adjusting for it creates bias.', eff: olsRaw.b },
-  { o: [-1, -1, -1], name: 'Budget follows revenue', desc: 'Revenue sets the budget, and the demand index is computed from both. Spend changes nothing.', eff: 0 },
+  { o: [1, 1, 1], name: 'Demand drives both', desc: 'Demand sets the budget and also moves revenue. Adjust for demand and you get the effect of spend. Part II does exactly this.', eff: SE.ortho.th },
+  { o: [-1, 1, 1], name: 'The ads create demand', desc: 'Spend raises demand, and demand raises revenue. Demand sits on the path from ads to sales, so adjusting for it hides part of the effect.', eff: olsRaw.b },
+  { o: [1, 1, -1], name: 'Revenue sets the budget', desc: 'The team sets budgets from demand and from revenue. Spend itself changes nothing.', eff: 0 },
+  { o: [1, -1, -1], name: 'Revenue drives everything', desc: 'Revenue moves the demand signal, and both set the budget. Spend changes nothing.', eff: 0 },
+  { o: [-1, -1, 1], name: 'Demand is a by-product', desc: 'Someone builds the demand index from spend and revenue. Adjusting for an index like that creates bias where there was none.', eff: olsRaw.b },
+  { o: [-1, -1, -1], name: 'Budget follows revenue', desc: 'Revenue sets the budget, and the demand index is built from both. Spend changes nothing.', eff: 0 },
 ];
 const effVar = v => Math.abs(v - SE.ortho.th) < .05 ? 'var(--cth)' : v > 1 ? 'var(--cy)' : 'var(--mu)';
 const effKey = v => Math.abs(v - SE.ortho.th) < .05 ? 'cth' : v > 1 ? 'cy' : 'mu';
@@ -2766,9 +2767,9 @@ const PO = (() => {
 })();
 const poS = { a: 0, f: 0, ph: -1 };
 const PO_TXT = [
-  ['Both outcomes, for every customer', () => '+' + ppv(PO.trueAtt) + ' pp', 'var(--cth)', 'In a simulation every customer has two outcomes: converted with ads and converted without. The effect among exposed customers is a plain average of the difference.'],
-  ['What any real dataset contains', () => '?', 'var(--mu)', 'Each customer reveals one outcome. The without-ads outcome is missing for every exposed customer, and no sample size brings it back.'],
-  ['What identification does', () => '+' + ppv(PO.idAtt) + ' pp', 'var(--cy)', 'Assume nothing hidden drives both exposure and conversion. Then each missing outcome can be filled with the conversion rate of unexposed look-alikes. The answer is only as good as that assumption.'],
+  ['Both outcomes, for every customer', () => '+' + ppv(PO.trueAtt) + ' pp', 'var(--cth)', 'In a simulation we can see both outcomes for every customer: with ads and without. The effect is the average difference among the customers who saw the ads.'],
+  ['What any real dataset contains', () => '?', 'var(--mu)', 'Real data shows one outcome per customer. For everyone who saw the ads, the without-ads outcome is missing. More data will never fill it in.'],
+  ['What identification does', () => '+' + ppv(PO.idAtt) + ' pp', 'var(--cy)', 'Assume nothing hidden drives both who saw the ads and who bought. Then you can fill each gap with the conversion rate of similar customers who saw nothing. The answer is only as good as that assumption.'],
 ];
 function poDom(ph) { if (poS.ph === ph) return; poS.ph = ph; const T = PO_TXT[ph]; $('#poK').textContent = T[0]; const n = $('#poNum'); n.textContent = T[1](); n.style.color = T[2]; $('#poTxt').textContent = T[3]; $$('#poSteps span').forEach((s, i) => s.classList.toggle('on', i === ph)); }
 function drawPo() {
@@ -2846,13 +2847,13 @@ let badHits = [], badRes = [], badRunner = null, badTimer = null, badT = BADT.at
 const roleCol = (P, r, on) => r === 'conf' ? (on ? P.cth : P.cbad) : r === 'iv' ? P.cy : r === 'noise' ? P.fg : P.cbad;
 function badWhy() {
   const s = [], miss = ['I', 'R'].filter(k => !BINC[k]).map(k => k === 'I' ? 'intent' : 'recency');
-  if (miss.length) s.push(`Leaving out ${miss.join(' and ')} reopens the back door, so the platform's selection gets counted as lift.`);
-  if (BINC.M) s.push('Sessions sit on the path from ads to conversion, so adjusting for them strips out most of the effect.');
-  if (BINC.C) s.push('Loyalty activity is caused by exposure and by conversion. Conditioning on it links them through a non-causal path that runs the wrong way.');
-  if (BINC.Z) s.push('Inventory only moves exposure. It sharpens the propensities and widens the spread.');
-  if (BINC.N) s.push('The random fields change little.');
-  if (!s.length || (s.length === 1 && BINC.N)) s.unshift('Intent and recency block every back-door path, and nothing downstream of the ads is included. The estimate centers on the truth.');
-  else if (!miss.length && !BINC.M && !BINC.C) s.unshift('The confounders are in and nothing downstream of the ads is, so the estimate still centers on the truth.');
+  if (miss.length) s.push(`Leave out ${miss.join(' and ')} and the platform's targeting gets counted as lift.`);
+  if (BINC.M) s.push('Ads drive sessions, and sessions drive orders. Adjusting for sessions removes most of the effect.');
+  if (BINC.C) s.push('Both the ads and the purchase drive loyalty activity. Adjusting for it creates a false link between them, and here that link points the wrong way.');
+  if (BINC.Z) s.push('Inventory changes who sees ads and nothing else. It adds no bias here, but it makes the estimates noisier.');
+  if (BINC.N) s.push('The random fields barely matter.');
+  if (!s.length || (s.length === 1 && BINC.N)) s.unshift('Intent and recency account for how the platform targeted, and nothing the ads caused is in the model. The estimate lands on the truth.');
+  else if (!miss.length && !BINC.M && !BINC.C) s.unshift('The confounders are in, and nothing the ads caused is, so the estimate still lands on the truth.');
   $('#badWhy').textContent = s.join(' ');
 }
 function drawBadDag(now) {
