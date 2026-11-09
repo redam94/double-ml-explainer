@@ -370,7 +370,7 @@ canvas.hm{aspect-ratio:1/1;height:auto;max-width:100%;touch-action:pan-y;cursor:
 .buy>div{border-top:2px solid var(--hair);padding-top:18px}
 .buy h3{font-size:21px;margin-bottom:10px}
 .buy ul{margin:0;padding-left:1.1em;color:var(--mu);font-size:16px;line-height:1.6}
-@media (min-width:1100px){.parts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:1100px){.parts{grid-template-columns:repeat(5,minmax(0,1fr))}.part b{font-size:20px}}
 
 /* ---------- large animations ---------- */
 .lab{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mu)}
@@ -420,7 +420,7 @@ canvas.hm{aspect-ratio:1/1;height:auto;max-width:100%;touch-action:pan-y;cursor:
 .bad-why{font-size:15.5px;color:var(--mu);margin:12px 0 0;min-height:4.5em;line-height:1.5}
 .roles{display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px}
 @media (min-width:700px){.roles{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (min-width:1080px){.roles{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1080px){.roles{grid-template-columns:repeat(3,minmax(0,1fr))}.roles.four{grid-template-columns:repeat(4,minmax(0,1fr))}}
 .role{background:var(--surface);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:8px;align-items:flex-start;min-width:0}
 .role h3{font-size:18px}
 .role p{margin:0;font-size:14.5px;color:var(--mu);line-height:1.45}
@@ -456,11 +456,11 @@ h2.rv,h1.rv{transform:translateY(90px)}
     <ul>
       <li><a href="#identification">Identification</a></li>
       <li><a href="#partial">Partial out</a></li>
-      <li><a href="#crossfit">Cross-fitting</a></li>
       <li><a href="#part2">Ad lift</a></li>
       <li><a href="#p2-match">Matching</a></li>
       <li><a href="#p2-dr">Doubly robust</a></li>
       <li><a href="#p3-sens">Sensitivity</a></li>
+      <li><a href="#part4">Experiments</a></li>
     </ul>
     <a class="cta" href="#p2-play">Try it</a>
   </div>
@@ -471,7 +471,7 @@ h2.rv,h1.rv{transform:translateY(90px)}
   <div class="wrap">
     <div class="kicker">Causal inference, explained</div>
     <h1>Double <span class="grad">Machine Learning.</span></h1>
-    <p class="lede">Two prediction models and two residuals can pin down an effect very precisely. <b>Which effect</b> you get depends on a causal graph the data can't show you.</p>
+    <p class="lede">Two prediction models and two residuals can pin down an effect very precisely. <b>Which effect</b> you get depends on a causal graph the data can't show you. This page explains what those methods buy, what they assume, and why experiments and independent lines of evidence have to carry the rest.</p>
     <div class="stage mec-stage">
       <canvas id="mec" style="height:clamp(470px,46vw,560px)" aria-label="A causal graph of demand, spend and revenue cycles through six ways of pointing its arrows. A scatter of the same data stays still beside it. The effect of spend each graph implies moves between about 0.5, 1.4 and 0."></canvas>
       <div class="mec-read"><div class="mec-l"><div class="lab" id="mecK">Graph 1 of 6</div><h3 id="mecName">Demand drives both</h3><p id="mecDesc"></p></div><div class="mec-r"><div class="lab">Effect of one more dollar</div><div class="num" id="mecEff">0.49</div></div></div>
@@ -488,7 +488,8 @@ h2.rv,h1.rv{transform:translateY(90px)}
       <a class="part" href="#identification"><span class="k">Part I · identification</span><b>What makes it causal</b><span class="d">The assumptions that turn a causal question into one the data can answer, and why the data can't confirm them.</span><span class="go">Start here ↓</span></a>
       <a class="part" href="#part2a"><span class="k">Part II · continuous treatment</span><b>Media spend and revenue</b><span class="d">How to estimate what weekly paid social spend does to revenue, and where simple models go wrong.</span><span class="go">Jump to Part II ↓</span></a>
       <a class="part" href="#part2"><span class="k">Part III · binary treatment</span><b>Ads that already ran</b><span class="d">Measuring lift after a campaign by comparing customers who saw it with customers who didn't.</span><span class="go">Jump to Part III ↓</span></a>
-      <a class="part" href="#p3-sens"><span class="k">Last · sensitivity</span><b>How wrong would it have to be?</b><span class="d">How far the assumptions would have to bend to change the answer, and why a test beats any estimator.</span><span class="go">Jump to the end ↓</span></a>
+      <a class="part" href="#p3-sens"><span class="k">Sensitivity</span><b>How wrong would it have to be?</b><span class="d">How far the assumptions would have to bend before the answer changes.</span><span class="go">Jump to sensitivity ↓</span></a>
+      <a class="part" href="#part4"><span class="k">Part IV · more evidence</span><b>Experiments and triangulation</b><span class="d">Why a random holdout needs no assumption, and how several lines of evidence that fail differently build a case.</span><span class="go">Jump to Part IV ↓</span></a>
     </div>
   </div>
 </header>
@@ -1480,7 +1481,108 @@ se, lift_se = phi.std() / np.sqrt(n), phi_l.std() / np.sqrt(n)
       <div><h3 class="B">What they cannot give you</h3><ul><li>Identification, the assumptions that make the answer causal</li><li>Protection from a confounder that is missing from <span class="m">X</span></li><li>Protection from features measured after exposure, or other bad controls</li><li>Any promise that the effect carries over to the next flight, audience or platform</li></ul></div>
     </div>
     <div class="prose narrow" style="margin-top:clamp(40px,5vw,64px)">
-      <p>When identification matters, fix it with design. Run a randomized holdout or a ghost-ad control in the next flight. Run a geo experiment. Or use a natural experiment, such as a budget cap or a delivery outage. Each one makes the first arrow true by design. The methods on this page then do their real job, which is getting the most out of the data you have.</p>
+      <p>These tools make the most of one dataset. They cannot tell you whether the dataset holds the causal answer. For that you need evidence from outside the sample, which is the subject of Part IV.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================== PART IV: EVIDENCE ===================================================== -->
+<header class="band hero" id="part4">
+  <div class="wrap">
+    <div class="kicker" style="color:var(--cth)">Part IV · Evidence beyond the sample</div>
+    <h2 class="h1b">You can't test the assumption. <span class="grad">You can replace it.</span></h2>
+    <p class="lede">Everything so far drew a causal answer out of one dataset, and that always needs an assumption the dataset can't check. An experiment removes the need for it. <b>Hold out a random slice of the customers the platform picked,</b> and the comparison is fair by construction.</p>
+    <div class="stage">
+      <canvas id="evHold" style="height:clamp(340px,42vw,500px)" aria-label="Customers plotted by intent and recency. The platform selects some of them. A coin flip then holds out a random share of the selected customers, who are scattered evenly among the exposed ones, unlike the customers the platform skipped."></canvas>
+      <div class="po-read">
+        <div class="po-steps" id="evSteps"><span class="on">1 · The platform picks</span><span>2 · A coin flip holds some back</span><span>3 · Compare like with like</span></div>
+      </div>
+      <div class="meters m3" style="max-width:900px;margin:8px auto 0;text-align:left">
+        <div class="meter"><div class="k">Customers the platform skipped</div><div class="v" id="evR0">…</div><div class="k">a different kind of customer</div></div>
+        <div class="meter"><div class="k">Picked, then held out at random</div><div class="v" id="evRH" style="color:var(--fg)">…</div><div class="k">same kind of customer, no ads</div></div>
+        <div class="meter"><div class="k">Picked and shown the ads</div><div class="v D" id="evR1">…</div><div class="k" id="evDiff">…</div></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="band light" id="ev-why">
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow fix"><span class="tag">Why it works</span> Randomization</div>
+      <h2>The coin flip does the identifying.</h2>
+      <p class="lede">In Part I, six causal graphs fit the same data. A coin flip leaves one. Nothing about a customer can cause a coin to land heads, so nothing can confound the comparison.</p>
+    </div>
+    <div class="scores">
+      <div class="score">
+        <div class="eyebrow fix"><span class="tag">What a holdout gives you</span></div>
+        <p style="font-size:17px;color:var(--fg)">The held-out customers are the missing half from Part I, made visible. The platform picked them for the same reasons it picked everyone else, hidden reasons included. Then chance kept the ads away.</p>
+        <p>So their conversion rate is a direct measurement of what exposed customers would have done without ads. You need no propensity model, no outcome model and no list of confounders. Because the holdout comes from the customers the platform picked, it measures the same thing as Part III: the effect on exposed customers.</p>
+      </div>
+      <div class="score">
+        <div class="eyebrow attempt"><span class="tag">What it does not give you</span></div>
+        <p style="font-size:17px;color:var(--fg)">An experiment answers one question, about one campaign, for one audience, at one point in time. And it costs something: every held-out customer is a sale you may have given up.</p>
+        <p>Small holdouts give wide ranges. Experiments can also break in practice. Held-out customers see the ads on another device, or the platform delivers differently when a test is running. An experiment replaces an untestable assumption with ones you can inspect. It does not remove the need to think.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="ev-tri">
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow idea"><span class="tag">Triangulation</span> Several lines of evidence</div>
+      <h2>Four answers. Four different ways to be wrong.</h2>
+      <p class="lede">No single method earns full trust. What earns it is agreement between methods that would fail for <b>different</b> reasons. Turn up the platform's hidden signal and watch which lines move.</p>
+    </div>
+    <div class="pg">
+      <div class="panel">
+        <div class="knob"><div class="row"><label for="evH">Hidden targeting signal</label><output id="evHo">1.0</output></div><input id="evH" type="range" min="0" max="1.5" step="0.25" value="1"><p>Something the platform uses to pick customers that also predicts who buys. It is not in the CRM, so no model can adjust for it.</p></div>
+        <div class="knob"><div class="row"><label for="evQ">Random holdout</label><output id="evQo">10%</output></div><input id="evQ" type="range" min="0" max="4" step="1" value="2"><p>Share of the picked customers who are randomly kept from seeing the ads.</p></div>
+        <div class="knob"><div class="row"><label id="evPl">Did the hidden signal exist before the campaign?</label></div>
+          <div class="seg-tabs sm" role="group" aria-labelledby="evPl" id="evPre"><button type="button" data-v="1" aria-pressed="true">Yes</button><button type="button" data-v="0" aria-pressed="false">No, it's new</button></div>
+          <p>The placebo test only works if whatever is hidden also moved sales before the ads ran.</p></div>
+        <div class="prog" aria-hidden="true"><i id="evBar"></i></div>
+      </div>
+      <div class="stack" style="gap:16px;min-width:0">
+        <div class="fig">
+          <div class="title"><span>Estimated effect on exposed customers · 100 campaigns each</span><span>percentage points</span></div>
+          <canvas id="evForest" style="height:clamp(300px,30vw,360px)" aria-label="Four rows showing the range of estimates across simulated campaigns for the doubly robust estimate, the placebo test, the placebo-corrected estimate and the randomized holdout, against the true effect"></canvas>
+          <div class="legend"><span style="color:var(--cth)"><i class="dash"></i>true effect</span><span><i style="height:9px;background:var(--mu)"></i>middle 95% of campaigns</span><span><i class="dot" style="background:var(--fg)"></i>average</span></div>
+        </div>
+        <p class="bad-why" id="evWhy" style="min-height:5.5em;font-size:16.5px"></p>
+      </div>
+    </div>
+    <div class="roles four" style="margin-top:clamp(28px,4vw,44px)">
+      <div class="role"><span class="chip part">Model-based</span><h3>Doubly robust estimate</h3><p>Uses every customer, so it is precise.</p><div class="res">Fails if: the platform targets on something you don't have.</div></div>
+      <div class="role"><span class="chip part">Check</span><h3>Placebo test</h3><p>Runs the same analysis on sales from before the campaign. Ads can't change the past, so the answer should be zero.</p><div class="res">Fails if: the hidden signal is new, so it left no trace in the past.</div></div>
+      <div class="role"><span class="chip part">Model-based</span><h3>Placebo-corrected estimate</h3><p>Subtracts the placebo result from the estimate, on the logic that the same bias shows up in both.</p><div class="res">Fails if: the bias before the campaign differs from the bias during it.</div></div>
+      <div class="role"><span class="chip ok">Design-based</span><h3>Randomized holdout</h3><p>Compares picked customers who saw the ads with picked customers who were randomly held back.</p><div class="res">Fails if: the holdout is too small to be precise, or it leaks.</div></div>
+    </div>
+    <div class="prose narrow" style="margin-top:clamp(36px,5vw,56px)">
+      <p>Read the chart by asking which lines agree. When the model-based estimate and the experiment agree, you have two independent reasons to believe the number, and the tighter one tells you how big it is. When they disagree, the pattern of disagreement points at the assumption that broke.</p>
+      <p>The lines also help each other. A small holdout is honest but vague. A doubly robust estimate is sharp but may be off. A holdout that confirms the sharp estimate lets you keep its precision. A holdout that contradicts it tells you how far off the model is, and that correction carries over to the next campaign's model.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band light" id="ev-flow">
+  <div class="wrap">
+    <div class="center">
+      <div class="eyebrow">Putting it together</div>
+      <h2>One estimate is a claim. Several make a case.</h2>
+      <p class="lede">A causal claim from one sample always rests on something the sample can't show. So treat each analysis as one piece of evidence, and plan for more than one.</p>
+    </div>
+    <ol class="recipe even">
+      <li><h3>Design before you estimate.</h3><div class="body">Ask for a random holdout, a staggered launch or a geo test before the campaign runs. A small experiment beats a clever model, and the two together beat either.</div></li>
+      <li><h3>Estimate with methods that forgive.</h3><div class="body">When you must work from data that already exists, use doubly robust estimation with cross-fitting, and adjust only for things measured before exposure.</div></li>
+      <li><h3>Look for evidence that could embarrass you.</h3><div class="body">Run placebo tests on past sales and on outcomes the ads can't affect. A method that finds an effect where none can exist is telling you about its bias.</div></li>
+      <li><h3>Say how wrong you would have to be.</h3><div class="body">Report the tipping point from the sensitivity analysis next to the estimate, with a benchmark the reader can judge.</div></li>
+      <li><h3>Compare lines that fail differently.</h3><div class="body">Put the model-based number next to an experiment, a different data source or a different method. Agreement between methods that share an assumption proves little.</div></li>
+      <li><h3>Keep the disagreements.</h3><div class="body">When an experiment contradicts a model, record the gap and use it to correct the next model. Over time the experiments calibrate the models, and the models extend the experiments.</div></li>
+    </ol>
+    <div class="prose narrow" style="margin-top:clamp(40px,5vw,64px)">
+      <p>Dana's final deck has three numbers on one page. The doubly robust estimate says the campaign lifted conversions by about a quarter. The sensitivity analysis says how much hidden targeting it would take to erase that. And the plan for the next flight includes a ten percent holdout, so that next quarter she can replace the assumption with a measurement.</p>
     </div>
   </div>
 </section>
@@ -1888,6 +1990,59 @@ const BAD = (() => {
   return { P, gen, truth, estimate, job };
 })();
 if (typeof module !== 'undefined') module.exports = BAD;
+
+</script>
+<script id="sim-evi">
+/* ===== Evidence world: hidden targeting signal U, optional randomized holdout, pre-period placebo ===== */
+const EVI = (() => {
+  const rng = DML.rng, sig = z => 1 / (1 + Math.exp(-z));
+  const base = (x1, x2) => -2.0 + 0.8 * x1 - 0.3 * x2 + 0.7 * (x2 * x2 - 1), tau = x1 => 0.35 + 0.15 * x1;
+  const eta = (x1, x2, u, h) => -0.95 + 0.8 * x1 + 0.6 * (x2 * x2 - 1) + 0.8 * h * u;
+  // h = strength of a signal the platform sees and the analyst does not. pre = does it also move pre-period conversion?
+  function gen(n, seed, h, q, pre) {
+    const r = rng(seed), d = { n, X1: new Float64Array(n), X2: new Float64Array(n), S: new Uint8Array(n), H: new Uint8Array(n), Y: new Uint8Array(n), YX: new Uint8Array(n), YP: new Uint8Array(n) };
+    for (let i = 0; i < n; i++) {
+      const x1 = r.n(), x2 = r.n(), u = r.n(), b = base(x1, x2) + 0.7 * h * u, sel = r() < sig(eta(x1, x2, u, h)) ? 1 : 0, hold = sel && r() < q ? 1 : 0, v = r();
+      const y0 = v < sig(b) ? 1 : 0, y1 = v < sig(b + tau(x1)) ? 1 : 0;
+      d.X1[i] = x1; d.X2[i] = x2; d.S[i] = sel; d.H[i] = hold;
+      d.Y[i] = sel ? y1 : y0;                 // world without a holdout: everyone selected is exposed
+      d.YX[i] = sel && !hold ? y1 : y0;       // world with the holdout
+      d.YP[i] = r() < sig(base(x1, x2) - 0.3 + (pre ? 0.7 * h * u : 0)) ? 1 : 0;   // pre-period conversion, no ads yet
+    }
+    return d;
+  }
+  const TC = {};
+  function truth(h) { const k = h.toFixed(2); if (TC[k]) return TC[k]; const r = rng(999), N = 200000; let se = 0, s = 0; for (let i = 0; i < N; i++) { const x1 = r.n(), x2 = r.n(), u = r.n(), e = sig(eta(x1, x2, u, h)), b = base(x1, x2) + 0.7 * h * u; se += e; s += e * (sig(b + tau(x1)) - sig(b)); } return (TC[k] = s / se); }
+  function logit(B, p, y, idx) {
+    const beta = new Float64Array(p), A = new Float64Array(p * p), g = new Float64Array(p), L = new Float64Array(p * p), z = new Float64Array(p);
+    for (let it = 0; it < 25; it++) {
+      A.fill(0); g.fill(0);
+      for (const i of idx) { const o = i * p; let s = 0; for (let a = 0; a < p; a++) s += B[o + a] * beta[a]; const mu = sig(s), w = Math.max(mu * (1 - mu), 1e-6), res = y[i] - mu; for (let a = 0; a < p; a++) { g[a] += B[o + a] * res; const wa = w * B[o + a]; for (let b = a; b < p; b++) A[a * p + b] += wa * B[o + b]; } }
+      for (let a = 0; a < p; a++) { A[a * p + a] += 1e-3; for (let b = 0; b < a; b++) A[a * p + b] = A[b * p + a]; }
+      for (let i = 0; i < p; i++) for (let j = 0; j <= i; j++) { let s = A[i * p + j]; for (let k = 0; k < j; k++) s -= L[i * p + k] * L[j * p + k]; L[i * p + j] = i === j ? Math.sqrt(Math.max(s, 1e-12)) : s / L[j * p + j]; }
+      for (let i = 0; i < p; i++) { let s = g[i]; for (let k = 0; k < i; k++) s -= L[i * p + k] * z[k]; z[i] = s / L[i * p + i]; }
+      let mx = 0; for (let i = p - 1; i >= 0; i--) { let s = z[i]; for (let k = i + 1; k < p; k++) s -= L[k * p + i] * z[k]; z[i] = s / L[i * p + i]; beta[i] += z[i]; mx = Math.max(mx, Math.abs(z[i])); }
+      if (mx < 1e-6) break;
+    }
+    return beta;
+  }
+  // doubly robust ATT of "selected" on outcome y, adjusting for intent and recency only
+  function drAtt(d, B, be, y) {
+    const n = d.n, p = 4, ctl = []; for (let i = 0; i < n; i++) if (!d.S[i]) ctl.push(i);
+    const bm = logit(B, p, y, ctl), pr = (b, i) => sig(B[i * p] * b[0] + B[i * p + 1] * b[1] + B[i * p + 2] * b[2] + B[i * p + 3] * b[3]);
+    let n1 = 0, t1 = 0, sw = 0, t2 = 0; for (let i = 0; i < n; i++) { const r = y[i] - pr(bm, i); if (d.S[i]) { n1++; t1 += r; } else { const e = Math.min(.995, Math.max(.005, pr(be, i))), w = e / (1 - e); sw += w; t2 += w * r; } }
+    return t1 / n1 - t2 / sw;
+  }
+  function estimate(d) {
+    const n = d.n, p = 4, B = new Float64Array(n * p), all = []; for (let i = 0; i < n; i++) { all.push(i); B[i * p] = 1; B[i * p + 1] = d.X1[i]; B[i * p + 2] = d.X2[i]; B[i * p + 3] = d.X2[i] * d.X2[i] - 1; }
+    const be = logit(B, p, d.S, all), dr = drAtt(d, B, be, d.Y), pl = drAtt(d, B, be, d.YP);
+    let a = 0, na = 0, b = 0, nb = 0; for (let i = 0; i < n; i++) if (d.S[i]) { if (d.H[i]) { b += d.YX[i]; nb++; } else { a += d.YX[i]; na++; } }
+    return [dr, pl, dr - pl, nb ? a / na - b / nb : NaN];
+  }
+  function* job(spec) { const T = truth(spec.h); let buf = []; for (let r = 0; r < spec.R; r++) { buf.push(estimate(gen(spec.n, 11000 + r, spec.h, spec.q, spec.pre))); if (buf.length === 10 || r === spec.R - 1) { yield { type: 'evi', add: buf, done: r + 1, R: spec.R, truth: T, id: spec.id }; buf = []; } } }
+  return { gen, truth, estimate, job, sig };
+})();
+if (typeof module !== 'undefined') module.exports = EVI;
 
 </script>
 <script>
@@ -2428,10 +2583,10 @@ function drawReuse() {
 PAINT2.push(drawReuse);
 
 /* ---------- worker plumbing ---------- */
-const SIMSRC = $('#sim-core').textContent + '\n' + $('#sim-dr').textContent + '\n' + $('#sim-bad').textContent + '\nonmessage = e => { for (const m of (e.data.type === "bad" ? BAD.job(e.data) : DR.job(e.data))) postMessage(m); };';
+const SIMSRC = $('#sim-core').textContent + '\n' + $('#sim-dr').textContent + '\n' + $('#sim-bad').textContent + '\n' + $('#sim-evi').textContent + '\nonmessage = e => { const t = e.data.type; for (const m of (t === "bad" ? BAD.job(e.data) : t === "evi" ? EVI.job(e.data) : DR.job(e.data))) postMessage(m); };';
 function fallbackRunner(onmsg) {
   let q = [], cur = null, dead = false, busy = false;
-  const pump = () => { if (dead) return; const t = performance.now(); while (performance.now() - t < 12) { if (!cur) { if (!q.length) { busy = false; return; } { const s = q.shift(); cur = s.type === 'bad' ? BAD.job(s) : DR.job(s); } } const r = cur.next(); if (r.done) { cur = null; continue; } onmsg(r.value); } setTimeout(pump, 0); };
+  const pump = () => { if (dead) return; const t = performance.now(); while (performance.now() - t < 12) { if (!cur) { if (!q.length) { busy = false; return; } { const s = q.shift(); cur = s.type === 'bad' ? BAD.job(s) : s.type === 'evi' ? EVI.job(s) : DR.job(s); } } const r = cur.next(); if (r.done) { cur = null; continue; } onmsg(r.value); } setTimeout(pump, 0); };
   return { post: s => { q.push(s); if (!busy) { busy = true; setTimeout(pump, 0); } }, stop: () => { dead = true; } };
 }
 function runner(onmsg) {
@@ -2950,6 +3105,85 @@ let badStarted = false; onView($('#bad-controls'), () => { if (badStarted) retur
   const sets = { noI: { R: 1 }, noR: { I: 1 }, M: { I: 1, R: 1, M: 1 }, C: { I: 1, R: 1, C: 1 }, Z: { I: 1, R: 1, Z: 1 }, N: { I: 1, R: 1, N: 1 } }, acc = {};
   Object.entries(sets).forEach(([id, inc]) => { acc[id] = []; const rr = runner(m => { if (m.type !== 'bad') return; acc[id].push(...m.add); if (m.done === m.R) { const s = summ2(acc[id].map(x => ({ x })), 'x', m.truth.att), el = $(`[data-bad="${id}"]`); el.textContent = `${s.mean < 0 ? '−' : ''}${ppv(Math.abs(s.mean))} pp (truth ${ppv(m.truth.att)}, sd ${ppv(s.sd)})`; el.style.color = s.ok ? 'var(--cth)' : 'var(--cbad)'; rr.stop(); } }); rr.post({ type: 'bad', R: 120, n: 5000, inc }); });
 });
+
+/* ======================================================= PART IV: EVIDENCE ======================================================= */
+const EVS = EVI.gen(5000, 11007, 1, .15, 1);
+const EVR = (() => { let a = 0, na = 0, b = 0, nb = 0, c = 0, nc = 0; for (let i = 0; i < EVS.n; i++) { if (!EVS.S[i]) { c += EVS.YX[i]; nc++; } else if (EVS.H[i]) { b += EVS.YX[i]; nb++; } else { a += EVS.YX[i]; na++; } } return { y1: a / na, yh: b / nb, y0: c / nc, nh: nb }; })();
+const EVSHOW = (() => { const r = DML.rng(3), s = []; for (let i = 0; i < EVS.n; i++) if (r() < .34) s.push(i); return s; })();
+const evS = { sel: 1, hold: 1, ph: -1 };
+function evDom(ph) {
+  if (evS.ph === ph) return; evS.ph = ph; $$('#evSteps span').forEach((s, i) => s.classList.toggle('on', i === ph));
+  $('#evR0').textContent = ppv(EVR.y0) + '%'; $('#evR1').textContent = ph >= 0 ? ppv(EVR.y1) + '%' : '…'; $('#evRH').textContent = ph >= 1 ? ppv(EVR.yh) + '%' : '…';
+  $('#evDiff').textContent = ph >= 2 ? `shown minus held out: ${ppv(EVR.y1 - EVR.yh)} points` : 'the dashboard would compare this with the skipped group';
+}
+function drawEvHold() {
+  const cv = $('#evHold'), { c, w, h } = prep(cv), P = pal(cv), box = { l: 30, r: w - 10, t: 10, b: h - 28 }, rad = w < 520 ? 2.2 : 3;
+  const sx = v => box.l + (v + 3) / 6 * (box.r - box.l), sy = v => box.b - (v + 3) / 6 * (box.b - box.t), s = ease(evS.sel), hd = ease(evS.hold);
+  const [r1, g1, b1] = hex(P.mu), [r2, g2, b2] = hex(P.cd);
+  for (const i of EVSHOW) {
+    const x = sx(EVS.X1[i]), y = sy(EVS.X2[i]);
+    if (!EVS.S[i]) { c.fillStyle = rgba(P.mu, .4); c.beginPath(); c.arc(x, y, rad, 0, 6.2832); c.fill(); continue; }
+    if (EVS.H[i] && hd > 0) {
+      c.fillStyle = P.bg; c.beginPath(); c.arc(x, y, rad * lerp(1.2, 1.9, hd), 0, 6.2832); c.fill();
+      c.strokeStyle = P.fg; c.lineWidth = 2; c.globalAlpha = lerp(.3, 1, hd); c.stroke(); c.globalAlpha = 1;
+      if (hd < 1) { c.fillStyle = rgba(P.cd, 1 - hd); c.beginPath(); c.arc(x, y, rad * 1.2, 0, 6.2832); c.fill(); }
+    } else { c.fillStyle = `rgb(${Math.round(lerp(r1, r2, s))},${Math.round(lerp(g1, g2, s))},${Math.round(lerp(b1, b2, s))})`; c.globalAlpha = lerp(.45, 1, s); c.beginPath(); c.arc(x, y, rad * lerp(1, 1.2, s), 0, 6.2832); c.fill(); c.globalAlpha = 1; }
+  }
+  c.font = F.body; c.fillStyle = P.mu; c.textAlign = 'right'; c.fillText('purchase intent →', box.r, h - 8);
+  c.save(); c.translate(14, box.b); c.rotate(-Math.PI / 2); c.textAlign = 'left'; c.fillText('weeks since last order →', 0, 0); c.restore();
+  c.font = F.mono; c.textAlign = 'left'; c.fillStyle = P.cd; c.fillText('● SHOWN ADS', box.l + 6, box.t + 14); c.fillStyle = P.fg; c.fillText('○ HELD OUT AT RANDOM', box.l + 6, box.t + 32); c.fillStyle = P.mu; c.fillText('● SKIPPED BY THE PLATFORM', box.l + 6, box.t + 50);
+}
+PAINT2.push(drawEvHold); evDom(2);
+if (!RM) { let t0 = null; const loop = now => { if (t0 === null) t0 = now; const t = ((now - t0) / 1000) % 14;
+  evS.sel = t < 1 ? 0 : t < 2.5 ? (t - 1) / 1.5 : t < 13 ? 1 : 1 - (t - 13);
+  evS.hold = t < 5 ? 0 : t < 6.5 ? (t - 5) / 1.5 : t < 13 ? 1 : 1 - (t - 13);
+  evDom(t < 5.5 ? 0 : t < 9 ? 1 : t < 13 ? 2 : 0); drawEvHold(); }; onView($('#evHold'), () => run(loop), () => live.delete(loop)); }
+
+/* ---------- triangulation forest ---------- */
+const EVQ = [.02, .05, .1, .2, .3];
+let evRes = [], evTruth = EVI.truth(1), evRunner = null, evTimer = null;
+const evCfg = () => ({ h: +$('#evH').value, q: EVQ[+$('#evQ').value], pre: $('#evPre [aria-pressed=true]').dataset.v === '1' ? 1 : 0 });
+function evWhy(final) {
+  const g = evCfg(), s = [];
+  if (g.h < .1) s.push('With no hidden signal, every line agrees. The doubly robust estimate is right, the placebo reads zero, and the holdout confirms both.');
+  else {
+    s.push('The doubly robust estimate is tight and too high. Its narrow range gives no hint that anything is off.');
+    if (g.pre) s.push('The placebo test catches it. It finds a lift before the campaign began, which can only be bias, and subtracting that bias brings the estimate back near the truth.');
+    else s.push('The placebo test reads zero and offers false comfort, because the hidden signal left no trace in the past. Only the holdout shows the problem.');
+  }
+  s.push(g.q <= .05 ? `A ${Math.round(g.q * 100)}% holdout is centered on the truth but too wide to settle the question alone.` : `The ${Math.round(g.q * 100)}% holdout is centered on the truth at every setting. Its range is wide because few customers are held out.`);
+  $('#evWhy').textContent = s.join(' ');
+}
+function drawForest() {
+  const cv = $('#evForest'), { c, w, h } = prep(cv), P = pal(cv), lw = w < 520 ? 112 : 190, box = { l: lw, r: w - (w < 520 ? 44 : 58), t: 12, b: h - 26 };
+  const rows = [['Doubly robust estimate', 0, evTruth], ['Placebo test (should be 0)', 1, 0], ['Placebo-corrected', 2, evTruth], ['Randomized holdout', 3, evTruth]], lo = -.1, hi = .3;
+  const sx = v => box.l + clamp((v - lo) / (hi - lo)) * (box.r - box.l), rh = (box.b - box.t) / rows.length;
+  c.font = F.mono; c.fillStyle = P.mu; c.strokeStyle = P.grid; c.lineWidth = 1; c.textAlign = 'center';
+  for (let v = -.1; v <= .3 + 1e-9; v += .1) { c.beginPath(); c.moveTo(sx(v), box.t); c.lineTo(sx(v), box.b); c.stroke(); c.fillText(Math.round(v * 100) + '', sx(v), h - 8); }
+  c.strokeStyle = P.mu; c.beginPath(); c.moveTo(sx(0), box.t); c.lineTo(sx(0), box.b); c.stroke();
+  c.save(); c.setLineDash([4, 4]); c.strokeStyle = P.cth; c.lineWidth = 2; c.beginPath(); c.moveTo(sx(evTruth), box.t); c.lineTo(sx(evTruth), box.b); c.stroke(); c.restore();
+  rows.forEach(([lab, k, target], r) => {
+    const y = box.t + rh * (r + .5), v = evRes.map(x => x[k]).filter(Number.isFinite).sort((a, b) => a - b);
+    c.textAlign = 'right'; c.fillStyle = P.fg; c.font = '500 13.5px "Geist", -apple-system, sans-serif';
+    const words = lab.split(' '); if (w < 520 && words.length > 1) { c.font = '500 12.5px "Geist", -apple-system, sans-serif'; const cut = words.length > 3 ? 2 : 1; c.fillText(words.slice(0, cut).join(' '), box.l - 10, y - 3); c.fillText(words.slice(cut).join(' '), box.l - 10, y + 13); } else c.fillText(lab, box.l - 10, y + 5);
+    if (v.length < 5) return; const m = v.reduce((s, x) => s + x, 0) / v.length, a = v[Math.floor(.025 * (v.length - 1))], b = v[Math.ceil(.975 * (v.length - 1))], sd = Math.sqrt(v.reduce((s, x) => s + (x - m) ** 2, 0) / v.length);
+    const ok = Math.abs(m - target) < Math.max(.5 * sd, .012), col = ok ? P.cth : P.cbad;
+    c.fillStyle = rgba(col, .35); c.beginPath(); if (c.roundRect) c.roundRect(sx(a), y - 9, Math.max(3, sx(b) - sx(a)), 18, 9); else c.rect(sx(a), y - 9, sx(b) - sx(a), 18); c.fill();
+    c.fillStyle = P.fg; c.beginPath(); c.arc(sx(m), y, 6, 0, 6.2832); c.fill(); c.strokeStyle = P.surface; c.lineWidth = 2; c.stroke();
+    c.textAlign = 'left'; c.fillStyle = col; c.font = '600 13.5px "Geist", -apple-system, sans-serif'; c.fillText((m < -.0005 ? '−' : '') + ppv(Math.abs(m)), box.r + 8, y + 5);
+  });
+}
+PAINT2.push(drawForest);
+function runEvi() {
+  if (evRunner) evRunner.stop(); evRes = []; const g = evCfg(), bar = $('#evBar'); bar.style.width = '0%'; evWhy();
+  $('#evHo').textContent = g.h.toFixed(2).replace(/0$/, ''); $('#evQo').textContent = Math.round(g.q * 100) + '%';
+  evRunner = runner(m => { if (m.type !== 'evi') return; evTruth = m.truth; evRes.push(...m.add); bar.style.width = (m.done / m.R * 100) + '%'; drawForest(); if (m.done === m.R) setTimeout(() => { bar.style.width = '0%'; }, 400); });
+  evRunner.post({ type: 'evi', R: 100, n: 5000, h: g.h, q: g.q, pre: g.pre });
+}
+const evQueue = () => { clearTimeout(evTimer); evTimer = setTimeout(runEvi, 250); };
+['#evH', '#evQ'].forEach(s => $(s).addEventListener('input', () => { const g = evCfg(); $('#evHo').textContent = g.h.toFixed(2).replace(/0$/, ''); $('#evQo').textContent = Math.round(g.q * 100) + '%'; evQueue(); }));
+$$('#evPre button').forEach(b => b.addEventListener('click', () => { $$('#evPre button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); evQueue(); }));
+evWhy(); let evStarted = false; onView($('#ev-tri'), () => { if (!evStarted) { evStarted = true; runEvi(); } });
 
 /* ======================================================= STACKED, SNAPPING SECTIONS ======================================================= */
 const BANDS = $$('body > .band');
