@@ -3259,6 +3259,9 @@ function paintAll() { drawHero(); drawNaive(); drawG(); drawHists(performance.no
 paintAll();
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(paintAll);
 let rz = null; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(paintAll, 120); });
+/* static charts are drawn once; redraw them whenever a canvas changes size (e.g. the frame was narrow or hidden at first paint) or scrolls into view */
+if ('ResizeObserver' in window) { const cro = new ResizeObserver(() => { clearTimeout(rz); rz = setTimeout(paintAll, 120); }); $$('canvas').forEach(cv => cro.observe(cv)); }
+$$('canvas').forEach(cv => onView(cv, () => { const dpr = Math.min(2, window.devicePixelRatio || 1); if (Math.abs(cv.width - Math.round(cv.clientWidth * dpr)) > 1 || Math.abs(cv.height - Math.round(cv.clientHeight * dpr)) > 1) { clearTimeout(rz); rz = setTimeout(paintAll, 30); } }));
 })();
 
 </script>
