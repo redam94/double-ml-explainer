@@ -476,7 +476,7 @@ h2.rv,h1.rv{transform:translateY(90px)}
       <canvas id="mec" style="height:clamp(470px,46vw,560px)" aria-label="A causal graph of demand, spend and revenue cycles through six ways of pointing its arrows. A scatter of the same data stays still beside it. The effect of spend each graph implies moves between about 0.5, 1.4 and 0."></canvas>
       <div class="mec-read"><div class="mec-l"><div class="lab" id="mecK">Graph 1 of 6</div><h3 id="mecName">Demand drives both</h3><p id="mecDesc"></p></div><div class="mec-r"><div class="lab">Effect of one more dollar</div><div class="num" id="mecEff">0.49</div></div></div>
       <div class="mec-tabs" id="mecTabs" role="group" aria-label="Choose a causal graph"></div>
-      <p class="mec-cap">Each of these six graphs links every pair of variables. So none of them predicts a pattern the data could rule out. Statisticians call a group like this a Markov equivalence class. Any data on demand, spend and revenue fits all six equally well, so picking one is an assumption you make.</p>
+      <p class="mec-cap">Each of these six graphs links every pair of variables. So none of them predicts a pattern the data could rule out. Statisticians call a group like this a Markov equivalence class. Any data on demand, spend and revenue fits all six equally well, so picking one is an assumption you make. The plot on the right shows the same customers the way the selected graph says to estimate the effect. For graph 1, that means removing demand from both spend and revenue first. For the other graphs, it means using spend and revenue as recorded.</p>
     </div>
     <div class="specs">
       <div class="spec"><span class="v">6</span><span class="k">causal graphs</span></div>
@@ -2695,14 +2695,15 @@ const WORLDS = [
 ];
 const effVar = v => Math.abs(v - SE.ortho.th) < .05 ? 'var(--cth)' : v > 1 ? 'var(--cy)' : 'var(--mu)';
 const effKey = v => Math.abs(v - SE.ortho.th) < .05 ? 'cth' : v > 1 ? 'cy' : 'mu';
-const mec = { k: 0, from: { d: [1, 1, 1], s: WORLDS[0].eff }, to: { d: [1, 1, 1], s: WORLDS[0].eff }, t0: -1e9, last: 0, pause: 0 };
-function mecState(now) { const p = ease(clamp((now - mec.t0) / 1100)); return { d: mec.from.d.map((v, i) => lerp(v, mec.to.d[i], p)), s: lerp(mec.from.s, mec.to.s, p), p }; }
+const mec = { k: 0, from: { d: [1, 1, 1], s: WORLDS[0].eff, r: 1 }, to: { d: [1, 1, 1], s: WORLDS[0].eff, r: 1 }, t0: -1e9, last: 0, pause: 0 };
+const adjOf = k => WORLDS[k].o[0] === 1 && WORLDS[k].o[1] === 1 && WORLDS[k].o[2] === 1 ? 1 : 0; // only graph 1 asks to remove demand
+function mecState(now) { const p = ease(clamp((now - mec.t0) / 1100)); return { d: mec.from.d.map((v, i) => lerp(v, mec.to.d[i], p)), s: lerp(mec.from.s, mec.to.s, p), r: lerp(mec.from.r, mec.to.r, p), p }; }
 function mecDom() {
   const W = WORLDS[mec.k]; $('#mecK').textContent = `Graph ${mec.k + 1} of 6`; $('#mecName').textContent = W.name; $('#mecDesc').textContent = W.desc;
   const e = $('#mecEff'); e.textContent = W.eff === 0 ? '0.00' : W.eff.toFixed(2); e.style.color = effVar(W.eff);
   $$('#mecTabs button').forEach((b, i) => b.setAttribute('aria-pressed', String(i === mec.k)));
 }
-function mecGo(k, now) { const cur = mecState(now); mec.from = { d: cur.d, s: cur.s }; mec.k = k; mec.to = { d: WORLDS[k].o.slice(), s: WORLDS[k].eff }; mec.t0 = now; mec.last = now; mecDom(); }
+function mecGo(k, now) { const cur = mecState(now); mec.from = { d: cur.d, s: cur.s, r: cur.r }; mec.k = k; mec.to = { d: WORLDS[k].o.slice(), s: WORLDS[k].eff, r: adjOf(k) }; mec.t0 = now; mec.last = now; mecDom(); }
 (function buildTabs() {
   const host = $('#mecTabs'), PT = { X: [30, 9], D: [9, 41], Y: [51, 41] }, E = [['X', 'D'], ['X', 'Y'], ['D', 'Y']];
   WORLDS.forEach((W, k) => {
@@ -2743,14 +2744,29 @@ function drawMec(now) {
     c.fillStyle = col; c.font = `italic ${Math.round(R * .85)}px "STIX Two Text", "Times New Roman", serif`; c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillText(L, x, y + 1);
     c.fillStyle = P.mu; c.font = F.body; c.textBaseline = 'alphabetic'; c.fillText(sub, x, side < 0 ? y - R - 10 : y + R + 20);
   }
-  // ---- the data ----
-  const [x0, x1, y0, y1] = domRaw, sx = v => sc.l + (v - x0) / (x1 - x0) * (sc.r - sc.l), sy = v => sc.b - (v - y0) / (y1 - y0) * (sc.b - sc.t);
-  for (let i = 0; i < N_; i++) { const [r, g, b] = ramp(P, tX[i]); c.fillStyle = `rgba(${r},${g},${b},.8)`; c.beginPath(); c.arc(sx(S.D[i]), sy(S.Y[i]), sc.rad, 0, 6.2832); c.fill(); }
+  // ---- the data, plotted the way the current graph says to estimate the effect ----
+  // graph 1 (demand drives both): partial out demand, plot revenue residual vs spend residual
+  // graphs 2 and 5 (spend has no parents): plot revenue vs spend as recorded
+  // graphs 3, 4, 6 (no path from spend to revenue): raw data, effect is zero by assumption
+  const r = st.r, mapX = (v, d) => sc.l + (v - d[0]) / (d[1] - d[0]) * (sc.r - sc.l), mapY = (v, d) => sc.b - (v - d[2]) / (d[3] - d[2]) * (sc.b - sc.t);
+  c.save(); c.strokeStyle = P.grid; c.lineWidth = 1; c.globalAlpha = r;
+  c.beginPath(); c.moveTo(mapX(0, domRes), sc.t); c.lineTo(mapX(0, domRes), sc.b); c.moveTo(sc.l, mapY(0, domRes)); c.lineTo(sc.r, mapY(0, domRes)); c.stroke(); c.restore();
+  for (let i = 0; i < N_; i++) {
+    const [cr, cg, cb] = ramp(P, tX[i]); c.fillStyle = `rgba(${cr},${cg},${cb},.8)`;
+    const x = lerp(mapX(S.D[i], domRaw), mapX(SC.Dr[i], domRes), r), y = lerp(mapY(S.Y[i], domRaw), mapY(SC.Yr[i], domRes), r);
+    c.beginPath(); c.arc(x, y, sc.rad, 0, 6.2832); c.fill();
+  }
+  const ends = (o, d, b) => { const f = x => o.my + b * (x - o.mx); let xa = d[0], xb = d[1]; if (Math.abs(b) > 1e-6) { const q = [(d[2] - o.my) / b + o.mx, (d[3] - o.my) / b + o.mx].sort((u, v) => u - v); xa = Math.max(d[0], q[0]); xb = Math.min(d[1], q[1]); } return [[mapX(xa, d), mapY(f(xa), d)], [mapX(xb, d), mapY(f(xb), d)]]; };
+  const A = ends(olsRaw, domRaw, st.s), B = ends(olsRes, domRes, st.s);
   const key = effKey(st.p < .5 ? mec.from.s : mec.to.s), lc = P[key];
-  c.save(); c.shadowColor = rgba(lc, .6); c.shadowBlur = 16; lineThrough(c, olsRaw, st.s, domRaw, sx, sy, lc, 4, null); c.restore();
-  c.font = F.mono; c.fillStyle = P.mu; c.textAlign = 'left'; c.fillText('OBSERVED DATA · IDENTICAL UNDER ALL SIX GRAPHS', sc.l, sc.t - 12);
-  c.font = F.math; c.textAlign = 'right'; c.fillText('spend D →', sc.r, sc.b + 22);
-  c.fillStyle = lc; c.font = '600 14px "Geist", -apple-system, sans-serif'; c.textAlign = 'right'; c.fillText('implied effect ' + st.s.toFixed(2), sc.r, sc.t + 14);
+  c.save(); c.shadowColor = rgba(lc, .6); c.shadowBlur = 16; c.strokeStyle = lc; c.lineWidth = 4; c.lineCap = 'round';
+  c.beginPath(); c.moveTo(lerp(A[0][0], B[0][0], r), lerp(A[0][1], B[0][1], r)); c.lineTo(lerp(A[1][0], B[1][0], r), lerp(A[1][1], B[1][1], r)); c.stroke(); c.restore();
+  const k = st.p < .5 ? mec.from : mec.to, adj = k.r > .5, zero = Math.abs(k.s) < 1e-9;
+  c.font = F.mono; c.fillStyle = P.mu; c.textAlign = 'left';
+  c.fillText(adj ? 'PARTIAL: DEMAND REMOVED FROM SPEND AND REVENUE' : zero ? 'RAW DATA: GRAPH SAYS SPEND HAS NO EFFECT' : 'RAW DATA: NOTHING TO ADJUST FOR', sc.l, sc.t - 12);
+  c.font = F.math; c.textAlign = 'right'; c.fillText(adj ? 'spend not explained by demand  D̃ →' : 'spend D →', sc.r, sc.b + 22);
+  c.save(); c.translate(sc.l - 4, sc.t + 4); c.rotate(-Math.PI / 2); c.textAlign = 'right'; c.fillText(adj ? 'revenue not explained by demand  Ỹ' : 'revenue Y', 0, 0); c.restore();
+  c.fillStyle = lc; c.font = '600 14px "Geist", -apple-system, sans-serif'; c.textAlign = 'left'; c.fillText('implied effect ' + st.s.toFixed(2), sc.l + 10, sc.t + 16);
 }
 const N_ = S.n;
 mecDom(); PAINT2.push(() => drawMec());
