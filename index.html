@@ -3107,7 +3107,20 @@ if (STACK) {
 /* ================= first paint + resize ================= */
 function paintAll() { palCache = new WeakMap(); drawHero(); drawNaive(); drawG(); drawHists(performance.now()); drawCards(); sceneP = sceneProgress(); drawScene(); drawFolds(); PAINT2.forEach(f => { try { f(); } catch (e) { console.error(e); } }); }
 paintAll();
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(paintAll);
+/* keep every display equation on one line: shrink its type until it fits its box */
+function fitEq() {
+  $$('.eq').forEach(e => {
+    if (e.closest('.eqbox.fit, .recipe')) return;
+    e.style.whiteSpace = 'nowrap'; e.style.fontSize = '';
+    const min = e.querySelector('.brace') ? 15 : 12; /* below this the box scrolls sideways instead */
+    for (let k = 0; k < 6; k++) { /* labels under braces do not scale, so step down until it fits */
+      const w = e.clientWidth, s = e.scrollWidth; if (!w || s <= w + 1) break;
+      const f = parseFloat(getComputedStyle(e).fontSize); if (f <= min) break; e.style.fontSize = Math.max(min, Math.floor(f * w / s * 10) / 10) + 'px';
+    }
+  });
+}
+fitEq(); addEventListener('resize', () => requestAnimationFrame(fitEq));
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { fitEq(); paintAll(); });
 let rz = null; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(paintAll, 120); });
 /* static charts are drawn once; redraw them whenever a canvas changes size (e.g. the frame was narrow or hidden at first paint) or scrolls into view */
 if ('ResizeObserver' in window) { const cro = new ResizeObserver(() => { clearTimeout(rz); rz = setTimeout(paintAll, 120); }); $$('canvas').forEach(cv => cro.observe(cv)); }
