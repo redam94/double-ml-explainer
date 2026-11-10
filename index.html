@@ -309,6 +309,8 @@ canvas.hm{aspect-ratio:1/1;height:auto;max-width:100%;touch-action:pan-y;cursor:
 .cards.six{grid-template-columns:repeat(2,minmax(0,1fr))}
 .cards.six .c:last-child{grid-column:auto}
 @media (min-width:860px){.cards.six{grid-template-columns:repeat(3,minmax(0,1fr))}}
+#anatTabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-radius:16px;width:100%}
+#anatTabs button{border-radius:12px;padding:8px 6px;font-size:13.5px;line-height:1.25;text-wrap:balance}
 .seg-tabs.sm{display:flex;margin-top:8px}
 .seg-tabs.sm button{flex:1;padding:8px 6px;font-size:13.5px}
 .pg2-out{display:grid;grid-template-columns:1fr;gap:14px;min-width:0}
@@ -796,8 +798,8 @@ h2.rv,h1.rv{transform:translateY(90px)}
         <div class="title"><span>Anatomy of one week</span><span>revenue <span class="m">Y</span><sub>i</sub></span></div>
         <div class="seg-tabs" id="anatTabs" role="group" aria-label="Revenue model">
           <button type="button" data-mode="0" aria-pressed="true">Smooth model</button>
-          <button type="button" data-mode="1" aria-pressed="false">Memorizing, in-sample</button>
-          <button type="button" data-mode="2" aria-pressed="false">Memorizing, cross-fit</button>
+          <button type="button" data-mode="1" aria-pressed="false">Memorizing, in&#8209;sample</button>
+          <button type="button" data-mode="2" aria-pressed="false">Memorizing, cross&#8209;fit</button>
         </div>
         <div class="anat" style="margin-top:50px">
           <div class="bars">
