@@ -251,7 +251,10 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;bac
 .recipe li::before{content:counter(s);grid-row:span 2;font-family:var(--f-display);font-size:40px;font-weight:700;letter-spacing:-.04em;line-height:1;color:var(--mu)}
 .recipe h3{font-size:22px}
 .recipe .body{font-size:16px;color:var(--mu);min-width:0}
-.recipe .body .eq{font-size:22px;text-align:left;margin-top:8px;overflow-x:auto}
+.recipe .body{container-type:inline-size}
+.recipe .body .eq .hat{line-height:1.15}
+.recipe .body .eq .frac>span:last-child{padding-top:.32em}
+.recipe .body .eq{font-size:clamp(12px,6cqw,22px);line-height:1.5;text-align:left;margin-top:4px;padding:.5em 0 .2em;white-space:nowrap;overflow-x:auto}
 pre.code{margin:clamp(28px,4vw,40px) 0 0;background:#1d1d1f;color:#e8e8ed;border-radius:24px;padding:24px clamp(18px,3vw,30px);overflow-x:auto;font-family:var(--f-mono);font-size:14px;line-height:1.65;color-scheme:dark}
 pre.code .c1{color:#8d8d93} pre.code .k1{color:#ff7ab2} pre.code .s1{color:#ff8170} pre.code .f1{color:#5ed0ff} pre.code .n1{color:#d9c97c}
 .notes{display:grid;grid-template-columns:1fr;gap:28px;margin-top:clamp(40px,5vw,64px)}
@@ -1149,7 +1152,7 @@ h2.rv,h1.rv{transform:translateY(90px)}
       <li><h3>Define the trial you wish you had run.</h3><div class="body">Write down who was eligible, when you measure exposure, and what counts as a conversion over what window. Measure every feature in <span class="m">X</span> before anyone saw an ad.</div></li>
       <li><h3>Cross-fit two models.</h3><div class="body">Train the propensity model <span class="m D">ê(X)</span>, the chance each customer was exposed, on everyone. Train the outcome model <span class="m Y">μ̂₀(X)</span> on unexposed customers only, then predict for everyone. Use flexible models and split the data into K folds.</div></li>
       <li><h3>Look at overlap before looking at lift.</h3><div class="body">Plot <span class="m D">ê</span> for each group. If you plan to drop customers with no good comparison, decide now. Then write down which customers your result still describes.</div></li>
-      <li><h3>Compute the doubly robust ATT.</h3><div class="body"><div class="eq"><i class="hat T">θ</i> = mean<sub><i class="D">D</i>=1</sub>(<i class="Y">Y</i> − <i class="Y hat">μ</i><sub>0</sub>) − Σ<sub><i class="D">D</i>=0</sub><i class="D hat">w</i>(<i class="Y">Y</i> − <i class="Y hat">μ</i><sub>0</sub>) / Σ<sub><i class="D">D</i>=0</sub><i class="D hat">w</i></div></div></li>
+      <li><h3>Compute the doubly robust ATT.</h3><div class="body"><div class="eq"><i class="hat T">θ</i> = mean<sub><i class="D">D</i>=1</sub>(<i class="Y">Y</i> − <i class="Y hat">μ</i><sub>0</sub>) − <span class="frac"><span>Σ<sub><i class="D">D</i>=0</sub><i class="D hat">w</i>(<i class="Y">Y</i> − <i class="Y hat">μ</i><sub>0</sub>)</span><span>Σ<sub><i class="D">D</i>=0</sub><i class="D hat">w</i></span></span></div></div></li>
       <li><h3>Get intervals from the influence function.</h3><div class="body">Each customer's score gives you the standard error. Relative lift divides by an estimated rate, so use the delta method to carry the uncertainty from both parts.</div></li>
       <li><h3>Try to break it.</h3><div class="body">Run a placebo test on conversions from the weeks before the campaign. It should show zero lift. Check that the weighted groups match on squares and curves of each feature, too. Then run a sensitivity analysis for a confounder you couldn't measure.</div></li>
     </ol>
