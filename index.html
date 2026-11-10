@@ -99,6 +99,10 @@ h3{font-size:clamp(24px,2.6vw,30px);font-weight:600;letter-spacing:-.022em;line-
 sub,sup{font-size:.62em;line-height:0}
 .sum{font-style:normal;font-size:1.2em}
 .eqbox{background:var(--surface);border-radius:28px;padding:clamp(22px,4vw,44px) clamp(16px,3vw,36px);overflow-x:auto}
+.eqbox.fit{container-type:inline-size}
+.eqbox.fit .eq{white-space:nowrap;line-height:1.5;padding-top:.3em}
+.eqbox.fit .eq .hat{line-height:1.15}
+.eqbox.fit .eq .frac>span:last-child{padding-top:.32em}
 .eqbox .cap{font-family:var(--f-body);font-size:15px;color:var(--mu);text-align:center;margin-top:14px;letter-spacing:-.005em}
 .brace{display:inline-flex;flex-direction:column;align-items:center;vertical-align:top}
 .brace .under{font-family:var(--f-mono);font-size:11.5px;font-style:normal;letter-spacing:.04em;text-transform:uppercase;border-top:1.5px solid currentColor;padding-top:6px;margin-top:4px;line-height:1.3;white-space:normal;text-align:center;max-width:18ch}
@@ -1406,7 +1410,7 @@ se, lift_se = phi.std() / np.sqrt(n), phi_l.std() / np.sqrt(n)
       </div>
       <div class="stack">
         <div class="prose"><p>Give every customer a score that estimates their own lift. Then average those scores within each segment you care about. Kennedy's DR-learner builds that score from the same two models:</p></div>
-        <div class="eqbox"><div class="eq" style="font-size:clamp(18px,2.1vw,23px)"><i class="hat">φ</i><span class="op">=</span><i class="Y hat">μ</i><sub>1</sub><span class="op">−</span><i class="Y hat">μ</i><sub>0</sub><span class="op">+</span><span class="frac"><span><i class="D">D</i>(<i class="Y">Y</i> − <i class="Y hat">μ</i><sub>1</sub>)</span><span><i class="D hat">e</i></span></span><span class="op">−</span><span class="frac"><span>(1 − <i class="D">D</i>)(<i class="Y">Y</i> − <i class="Y hat">μ</i><sub>0</sub>)</span><span>1 − <i class="D hat">e</i></span></span></div></div>
+        <div class="eqbox fit"><div class="eq" style="font-size:clamp(11px,5.1cqw,23px)"><i class="hat">φ</i><span class="op">=</span><i class="Y hat">μ</i><sub>1</sub><span class="op">−</span><i class="Y hat">μ</i><sub>0</sub><span class="op">+</span><span class="frac"><span><i class="D">D</i>(<i class="Y">Y</i> − <i class="Y hat">μ</i><sub>1</sub>)</span><span><i class="D hat">e</i></span></span><span class="op">−</span><span class="frac"><span>(1 − <i class="D">D</i>)(<i class="Y">Y</i> − <i class="Y hat">μ</i><sub>0</sub>)</span><span>1 − <i class="D hat">e</i></span></span></div></div>
         <div class="prose">
           <p>Any one customer's score is noisy. Averaged over similar customers, it gives the true effect, as long as either the propensity model or the outcome models are right. This still relies on the platform not targeting on anything hidden. Smoothing the scores across intent gives the curve on the left.</p>
           <p>The dashboard compares exposed and unexposed customers within each intent band. By that view, the campaign adds 14 to 23 points for everyone. The DR-learner tells a different story. Lift is close to zero for low-intent customers and climbs to about 14 points for the highest. That curve tells the team who to target in the next flight.</p>
